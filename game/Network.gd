@@ -147,14 +147,14 @@ func client_register_info(player_name):
 	}
 	players[id] = player_info
 	
-	player_joined_rpc.call(id, player_info)
+	player_joined_rpc2.call(id, player_info)
 	
 	sync_full_player_list_rpc.call_id(id, players)
 	
 	player_joined.emit(id, player_info)
 
 @rpc("authority")
-func player_joined_rpc(id, player_info):
+func player_joined_rpc2(id, player_info):
 	if id == multiplayer.get_unique_id():
 		return
 	print("Adding new player %d to local list" % id)
