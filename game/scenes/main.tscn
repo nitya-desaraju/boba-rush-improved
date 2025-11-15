@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://by2clyrelccgd"]
+
+[ext_resource type="Texture2D" uid="uid://yinuae2eiy6x" path="res://assets/table-placeholder.jpeg" id="1_ig7tw"]
+[ext_resource type="Texture2D" uid="uid://de236gp02086i" path="res://assets/boba-placeholder.png" id="2_0xm2m"]
+
+[node name="Node" type="Node"]
+
+[node name="Table-placeholder" type="Sprite2D" parent="."]
+position = Vector2(594, 167)
+texture = ExtResource("1_ig7tw")
+
+[node name="Boba-placeholder" type="Sprite2D" parent="."]
+position = Vector2(505, 350)
+scale = Vector2(0.46, 0.45375)
+texture = ExtResource("2_0xm2m")
