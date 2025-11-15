@@ -13,7 +13,6 @@ signal round_ended(scores, current_leaderboard)
 signal game_over_by_death(dead_player_id, player_name, final_scores)
 signal game_over_normally(final_scores)
 
-const DATABASE_URL = "https://boba-rush-3c9e4-default-rtdb.firebaseio.com/"
 const ROOM_PATH = "rooms/"
 const GAME_PORT = 7777
 
@@ -28,9 +27,10 @@ var current_round = 0
 
 var players = {}
 
+var death_trigger_id = -1
+
 
 func _ready() -> void:
-	firebase.init(DATABASE_URL, self)
 	multiplayer.peer_connected.connect(_on_player_connected)
 	multiplayer.peer_disconnected.connect(_on_player_disconnected)
 	multiplayer.server_disconnected.connect(_on_server_disconnected)
@@ -85,19 +85,16 @@ func join_game(room_code):
 		return
 		
 	multiplayer.set_multiplayer_peer(peer)
-	# Client will call `client_register_info` via RPC after connection.
 
 func _on_player_connected(id):
 	print("Player connected: " + str(id))
-	# Host waits for the client to send their info via RPC
-	# Clients will call `client_register_info_rpc` automatically
 
 func _on_player_disconnected(id):
 	print("Player disconnected: " + str(id))
 	if players.has(id):
 		players.erase(id)
-		player_left_rpc.call(id) # Tell remaining clients
-		player_left.emit(id) # Update host UI
+		player_left_rpc.call(id)
+		player_left.emit(id)
 
 func _on_server_disconnected():
 	print("Disconnected from server.")
@@ -106,7 +103,6 @@ func _on_server_disconnected():
 	current_state = GameState.LOBBY
 	lobby_join_failed.emit("Lost connection to host.")
 
-# --- This is the local function to add a player to the list ---
 func _register_player_locally(id, player_name):
 	var player_info = {
 		"name": player_name,
@@ -115,54 +111,37 @@ func _register_player_locally(id, player_name):
 		"dead": false
 	}
 	players[id] = player_info
-	player_joined.emit(id, player_info) # For the host's UI
+	player_joined.emit(id, player_info)
 
-# --- CLIENT -> HOST ---
-# Called by clients to register themselves with the host
 @rpc("any_peer", "call_local")
 func client_register_info(player_name):
 	var id = multiplayer.get_remote_sender_id()
 	print("Host: Registering player %d: %s" % [id, player_name])
 	
-	# 1. Host adds player to the list
 	_register_player_locally(id, player_name)
-	
-	# 2. Host tells all *other* clients about the new player
 	player_joined_rpc.call(id, players[id])
-	
-	# 3. Host tells the *new client* the full player list
-	#    This is the line that was causing the error
 	rpc_id(id, "sync_full_player_list_rpc", players)
 
-
-# --- HOST -> ALL CLIENTS ---
-# Tells all clients that a new player joined
 @rpc("authority")
 func player_joined_rpc(id, player_info):
 	if id == multiplayer.get_unique_id():
-		return # Don't re-add ourselves
+		return
 	print("Client: Adding new player %d to local list" % id)
 	players[id] = player_info
-	player_joined.emit(id, player_info) # For client UIs
+	player_joined.emit(id, player_info)
 
-# --- HOST -> NEW CLIENT ---
-# Welcomes the new client and gives them the full list
 @rpc("authority")
 func sync_full_player_list_rpc(all_players):
 	print("Client: Successfully joined lobby. Syncing all players.")
 	players = all_players
-	lobby_joined.emit() # Tell our UI we are in
+	lobby_joined.emit()
 
-# --- HOST -> ALL CLIENTS ---
-# Tells all clients that a player left
 @rpc("authority")
 func player_left_rpc(id):
 	if players.has(id):
 		print("Client: Player %d left." % id)
 		players.erase(id)
-		player_left.emit(id) # Update client UIs
-
-# --- Game Flow Starts Here ---
+		player_left.emit(id)
 
 func start_game(num_rounds: int):
 	if not multiplayer.is_server():
@@ -173,8 +152,8 @@ func start_game(num_rounds: int):
 	current_round = 0
 	current_state = GameState.IN_GAME
 	
-	start_game_rpc.call(total_rounds) # Tell all clients
-	_start_next_round() # Start first round locally
+	start_game_rpc.call(total_rounds)
+	_start_next_round()
 
 @rpc("authority")
 func start_game_rpc(num_rounds):
@@ -187,6 +166,8 @@ func _start_next_round():
 	if not multiplayer.is_server():
 		return
 		
+	death_trigger_id = -1
+	
 	current_round += 1
 	print("Host starting round %d" % current_round)
 	
@@ -213,27 +194,26 @@ func client_finished_drink(drink_data):
 	var id = multiplayer.get_remote_sender_id()
 	
 	if not players.has(id) or players[id]["finished_round"]:
-		return # Player already finished or doesn't exist
+		return
 		
 	print("Host: Received finished drink from player %d" % id)
 	players[id]["finished_round"] = true
 	
-	# --- Scoring Logic ---
-	var score_for_this_round = 100 # Placeholder
-	var customer_died = false # Placeholder
+	var score_for_this_round = 100
+	var customer_died = false
 	
 	if drink_data.has("caffeine") and drink_data["caffeine"] > 2:
 		customer_died = true
-	# --- End Scoring Logic ---
-
+	
 	if customer_died:
-		print("Host: Player %d's customer died!" % id)
+		print("Host: Player %d's customer died! (It's a secret...)" % id)
 		players[id]["dead"] = true
-		players[id]["score"] = 0 # Their total score is 0
-		_end_game_due_to_death(id)
+		players[id]["score"] = 0
+		death_trigger_id = id
 	else:
 		players[id]["score"] += score_for_this_round
-		_check_if_round_over()
+	
+	_check_if_round_over()
 
 func _check_if_round_over():
 	if not multiplayer.is_server():
@@ -241,7 +221,6 @@ func _check_if_round_over():
 
 	var all_finished = true
 	for id in players:
-		# Check all players who are NOT dead
 		if not players[id]["dead"] and not players[id]["finished_round"]:
 			all_finished = false
 			break
@@ -253,16 +232,19 @@ func _check_if_round_over():
 func _end_round():
 	current_state = GameState.ROUND_END
 	
-	end_round_rpc.call(players)
-	
-	# Wait a bit on the score screen before next round
-	await get_tree().create_timer(5.0).timeout
-	
-	# Check if game is over
-	if current_round >= total_rounds:
-		_end_game_normally()
+	if death_trigger_id != -1:
+		print("Host: Round ending with a death. Triggering jumpscare.")
+		_end_game_due_to_death(death_trigger_id)
 	else:
-		_start_next_round()
+		print("Host: Round ending normally. Showing scores.")
+		end_round_rpc.call(players)
+		
+		await get_tree().create_timer(5.0).timeout
+		
+		if current_round >= total_rounds:
+			_end_game_normally()
+		else:
+			_start_next_round()
 
 func _end_game_normally():
 	current_state = GameState.GAME_OVER
@@ -279,9 +261,9 @@ func _end_game_due_to_death(dead_player_id):
 @rpc("authority")
 func end_round_rpc(all_player_data):
 	current_state = GameState.ROUND_END
-	players = all_player_data # Sync scores
-	round_ended.emit(players, players) # TODO: Send round-specific scores
-	print("Client: Round ended.")
+	players = all_player_data
+	round_ended.emit(players, players)
+	print("Client: Round ended. Showing scores.")
 
 @rpc("authority")
 func game_over_normally_rpc(final_scores):

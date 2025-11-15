@@ -2,3 +2,5 @@
 .godot/
 /android/
 godot_super-wakatime
+.env
+game/addons/godot-firebase/.env
