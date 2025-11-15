@@ -28,7 +28,7 @@ func host_game():
 		if ip.begins_with("192.") or ip.begins_with("10."):
 			host_ip = ip
 			break
-            
+			
 	if host_ip == "":
 		lobby_join_failed.emit("offline")
 		return
@@ -36,12 +36,12 @@ func host_game():
 	var room_code = str(randi_range(100000, 999999))
 	var data = {"ip": host_ip}
 	firebase.set_value(ROOM_PATH + room_code, data)
-    
+	
 	var err = peer.create_server(GAME_PORT)
 	if err != OK:
 		lobby_join_failed.emit("Could not create server.")
 		return
-        
+		
 	multiplayer.set_multiplayer_peer(peer)
 	print("Server created! Your join code is: " + room_code)
 	lobby_created.emit(room_code)
@@ -55,13 +55,13 @@ func join_game(room_code):
 		return
 
 	var host_ip = result.get("ip")
-    
+	
 	print("Room found! Connecting to host at " + host_ip)
 	var err = peer.create_client(host_ip, GAME_PORT)
 	if err != OK:
 		lobby_join_failed.emit("Could not connect to host.")
 		return
-        
+		
 	multiplayer.set_multiplayer_peer(peer)
 
 func _on_player_connected(id):
