@@ -13,7 +13,6 @@ signal round_ended(scores, current_leaderboard)
 signal game_over_by_death(dead_player_id, player_name, final_scores)
 signal game_over_normally(final_scores)
 
-const DATABASE_URL = "https://boba-rush-3c9e4-default-rtdb.firebaseio.com/"
 const ROOM_PATH = "rooms/"
 const GAME_PORT = 7777
 
@@ -32,7 +31,6 @@ var death_trigger_id = -1
 
 
 func _ready() -> void:
-	firebase.init(DATABASE_URL, self)
 	multiplayer.peer_connected.connect(_on_player_connected)
 	multiplayer.peer_disconnected.connect(_on_player_disconnected)
 	multiplayer.server_disconnected.connect(_on_server_disconnected)
