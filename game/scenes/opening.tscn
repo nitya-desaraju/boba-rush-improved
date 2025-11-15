@@ -1,13 +1,27 @@
-[gd_scene load_steps=5 format=3 uid="uid://bwyoc8ruy8n46"]
+[gd_scene load_steps=7 format=3 uid="uid://bwyoc8ruy8n46"]
 
 [ext_resource type="FontFile" uid="uid://de1c1rkxkm00i" path="res://assets/fonts/CookieCrisp-L36ly.ttf" id="1_gafq3"]
-[ext_resource type="Texture2D" uid="uid://b3k76oy0jjtlu" path="res://assets/arrow-placeholder.png" id="2_y6ged"]
+[ext_resource type="Texture2D" uid="uid://dogaa7jvywrwo" path="res://assets/home-background.png" id="1_y6ged"]
 [ext_resource type="Script" uid="uid://c8adytt5vassq" path="res://scripts/go.gd" id="3_y6ged"]
+
+[sub_resource type="FontFile" id="FontFile_y6ged"]
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_hsrnu"]
 font = ExtResource("1_gafq3")
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fvetl"]
+load_path = "res://.godot/imported/arrow-placeholder.png-da408cdad7e8541b6e784086b3dad445.ctex"
+
 [node name="Opening" type="Node"]
+
+[node name="HomeBackground" type="Sprite2D" parent="."]
+position = Vector2(577, 330)
+texture = ExtResource("1_y6ged")
 
 [node name="Label" type="Label" parent="."]
 offset_left = 244.0
@@ -15,17 +29,18 @@ offset_top = 51.0
 offset_right = 284.0
 offset_bottom = 100.0
 scale = Vector2(17.1894, 9.94295)
+theme_override_fonts/font = SubResource("FontFile_y6ged")
 text = "Boba
 Rush"
 label_settings = SubResource("LabelSettings_hsrnu")
 
 [node name="Button" type="Button" parent="."]
 offset_left = 795.0
-offset_top = 359.0
+offset_top = 200.0
 offset_right = 978.0
-offset_bottom = 508.0
+offset_bottom = 349.0
 scale = Vector2(1.82584, 1.42881)
-icon = ExtResource("2_y6ged")
+icon = SubResource("CompressedTexture2D_fvetl")
 script = ExtResource("3_y6ged")
 
 [connection signal="pressed" from="Button" to="Button" method="_on_pressed"]
