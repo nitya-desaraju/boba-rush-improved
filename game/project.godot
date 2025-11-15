@@ -12,13 +12,13 @@ config_version=5
 
 config/name="game"
 run/main_scene="uid://bwyoc8ruy8n46"
-config/features=PackedStringArray("4.5", "Forward Plus")
+config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 Firebase="*res://addons/godot-firebase/firebase/firebase.tscn"
-Network="*res://Network.gd"
+Network="*res://scripts/Network.gd"
 
 [editor_plugins]
 
