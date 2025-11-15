@@ -10,11 +10,14 @@ signal host_started_game
 signal game_started(total_rounds)
 signal round_started(round_number, order_details)
 signal round_ended(scores, current_leaderboard)
-signal game_over_by_death(dead_player_id, player_name, final_scores)
+signal game_over_by_customer_death(killing_player_id, player_name, final_scores)
 signal game_over_normally(final_scores)
 
 const ROOM_PATH = "rooms/"
 const GAME_PORT = 7777
+
+const MAX_PLAYERS = 10
+const MAX_NAME_LENGTH = 20
 
 @onready var firebase = get_node("/root/Firebase")
 var peer = ENetMultiplayerPeer.new()
@@ -26,8 +29,8 @@ var total_rounds = 3
 var current_round = 0
 
 var players = {}
-
-var death_trigger_id = -1
+var killing_player_trigger_id = -1
+var current_order_details = {}
 
 
 func _ready() -> void:
@@ -36,7 +39,10 @@ func _ready() -> void:
 	multiplayer.server_disconnected.connect(_on_server_disconnected)
 
 func set_player_name(new_name: String):
-	local_player_name = new_name
+	if new_name.length() > MAX_NAME_LENGTH:
+		local_player_name = new_name.substr(0, MAX_NAME_LENGTH)
+	else:
+		local_player_name = new_name
 
 func host_game():
 	var host_ip = ""
@@ -54,7 +60,8 @@ func host_game():
 	var data = {"ip": host_ip}
 	firebase.set_value(ROOM_PATH + room_code, data)
 	
-	var err = peer.create_server(GAME_PORT)
+	var err = peer.create_server(GAME_PORT, MAX_PLAYERS - 1)
+	
 	if err != OK:
 		print("Error: Could not create server.")
 		lobby_join_failed.emit("Could not create server.")
@@ -108,7 +115,7 @@ func _register_player_locally(id, player_name):
 		"name": player_name,
 		"score": 0,
 		"finished_round": false,
-		"dead": false
+		"customer_dead": false
 	}
 	players[id] = player_info
 	player_joined.emit(id, player_info)
@@ -116,9 +123,19 @@ func _register_player_locally(id, player_name):
 @rpc("any_peer", "call_local")
 func client_register_info(player_name):
 	var id = multiplayer.get_remote_sender_id()
+
+	if players.size() >= MAX_PLAYERS:
+		print("Host: Player %d tried to join, but the room is full. Kicking." % id)
+		peer.disconnect_peer(id)
+		return
+
 	print("Host: Registering player %d: %s" % [id, player_name])
 	
-	_register_player_locally(id, player_name)
+	var final_player_name = player_name
+	if final_player_name.length() > MAX_NAME_LENGTH:
+		final_player_name = final_player_name.substr(0, MAX_NAME_LENGTH)
+	
+	_register_player_locally(id, final_player_name)
 	player_joined_rpc.call(id, players[id])
 	rpc_id(id, "sync_full_player_list_rpc", players)
 
@@ -153,6 +170,7 @@ func start_game(num_rounds: int):
 	current_state = GameState.IN_GAME
 	
 	start_game_rpc.call(total_rounds)
+	host_started_game.emit()
 	_start_next_round()
 
 @rpc("authority")
@@ -166,21 +184,22 @@ func _start_next_round():
 	if not multiplayer.is_server():
 		return
 		
-	death_trigger_id = -1
-	
+	killing_player_trigger_id = -1
 	current_round += 1
 	print("Host starting round %d" % current_round)
 	
 	for id in players:
-		if not players[id]["dead"]:
+		if not players[id]["customer_dead"]:
 			players[id]["finished_round"] = false
 			
-	var order_details = {
+	current_order_details = {
 		"drink_name": "Caffeine Bomb",
-		"ingredients": ["coffee", "coffee", "sugar", "danger"]
+		"target_caffeine": 2.0,
+		"target_sweetness": 1.0,
+		"max_caffeine": 3.0
 	}
 	
-	start_round_rpc.call(current_round, order_details)
+	start_round_rpc.call(current_round, current_order_details)
 	
 @rpc("authority")
 func start_round_rpc(round_num, order):
@@ -199,17 +218,31 @@ func client_finished_drink(drink_data):
 	print("Host: Received finished drink from player %d" % id)
 	players[id]["finished_round"] = true
 	
-	var score_for_this_round = 100
-	var customer_died = false
+	var time_taken = float(drink_data.get("time_taken", 50.0))
+	var time_score = clamp(50.0 - time_taken, 0.0, 50.0)
+
+	var caffeine_val = float(drink_data.get("caffeine", 0.0))
+	var sweetness_val = float(drink_data.get("sweetness", 0.0))
 	
-	if drink_data.has("caffeine") and drink_data["caffeine"] > 2:
-		customer_died = true
+	var target_caffeine = float(current_order_details.get("target_caffeine", 2.0))
+	var target_sweetness = float(current_order_details.get("target_sweetness", 1.0))
+	
+	var caffeine_diff = abs(caffeine_val - target_caffeine)
+	var sweetness_diff = abs(sweetness_val - target_sweetness)
+	
+	var total_diff = caffeine_diff + sweetness_diff
+	var accuracy_score = clamp(50.0 - (total_diff * 10.0), 0.0, 50.0)
+	
+	var score_for_this_round = roundi(time_score + accuracy_score)
+	
+	var max_caffeine = float(current_order_details.get("max_caffeine", 3.0))
+	var customer_died = (caffeine_val > max_caffeine)
 	
 	if customer_died:
 		print("Host: Player %d's customer died! (It's a secret...)" % id)
-		players[id]["dead"] = true
+		players[id]["customer_dead"] = true
 		players[id]["score"] = 0
-		death_trigger_id = id
+		killing_player_trigger_id = id
 	else:
 		players[id]["score"] += score_for_this_round
 	
@@ -221,7 +254,7 @@ func _check_if_round_over():
 
 	var all_finished = true
 	for id in players:
-		if not players[id]["dead"] and not players[id]["finished_round"]:
+		if not players[id]["customer_dead"] and not players[id]["finished_round"]:
 			all_finished = false
 			break
 			
@@ -232,9 +265,9 @@ func _check_if_round_over():
 func _end_round():
 	current_state = GameState.ROUND_END
 	
-	if death_trigger_id != -1:
-		print("Host: Round ending with a death. Triggering jumpscare.")
-		_end_game_due_to_death(death_trigger_id)
+	if killing_player_trigger_id != -1:
+		print("Host: Round ending with a customer death. Triggering jumpscare.")
+		_end_game_due_to_customer_death(killing_player_trigger_id)
 	else:
 		print("Host: Round ending normally. Showing scores.")
 		end_round_rpc.call(players)
@@ -251,12 +284,12 @@ func _end_game_normally():
 	print("Host: Game over normally.")
 	game_over_normally_rpc.call(players)
 
-func _end_game_due_to_death(dead_player_id):
+func _end_game_due_to_customer_death(killing_player_id):
 	current_state = GameState.GAME_OVER
-	print("Host: Game over due to death by player %d" % dead_player_id)
-	var player_name = players[dead_player_id]["name"]
+	print("Host: Game over due to customer death by player %d" % killing_player_id)
+	var player_name = players[killing_player_id]["name"]
 	
-	game_over_by_death_rpc.call(dead_player_id, player_name, players)
+	game_over_by_customer_death_rpc.call(killing_player_id, player_name, players)
 
 @rpc("authority")
 func end_round_rpc(all_player_data):
@@ -273,8 +306,8 @@ func game_over_normally_rpc(final_scores):
 	print("Client: Game over normally.")
 
 @rpc("authority")
-func game_over_by_death_rpc(dead_player_id, player_name, final_scores):
+func game_over_by_customer_death_rpc(killing_player_id, player_name, final_scores):
 	current_state = GameState.GAME_OVER
 	players = final_scores
-	game_over_by_death.emit(dead_player_id, player_name, final_scores)
-	print("Client: Game over by DEATH!")
+	game_over_by_customer_death.emit(killing_player_id, player_name, final_scores)
+	print("Client: Game over by CUSTOMER DEATH!")
