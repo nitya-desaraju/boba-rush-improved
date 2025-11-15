@@ -46,6 +46,32 @@ func host_game():
 	print("Server created! Your join code is: " + room_code)
 	lobby_created.emit(room_code)
 
+func join_game(room_code):
+	print("Joining room: " + room_code)
+	var result = await firebase.get_value(ROOM_PATH + room_code)
+
+	if result == null or not result.has("ip"):
+		lobby_join_failed.emit("Room not found!")
+		return
+
+	var host_ip = result.get("ip")
+    
+	print("Room found! Connecting to host at " + host_ip)
+	var err = peer.create_client(host_ip, GAME_PORT)
+	if err != OK:
+		lobby_join_failed.emit("Could not connect to host.")
+		return
+        
+	multiplayer.set_multiplayer_peer(peer)
+
+func _on_player_connected(id):
+	print("Player connected: " + str(id))
+	player_joined.emit(id, "Player " + str(id))
+
+func _on_player_disconnected(id):
+	print("Player disconnected: " + str(id))
+	player_left.emit(id)
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
