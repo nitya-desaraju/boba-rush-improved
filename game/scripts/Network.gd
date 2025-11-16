@@ -17,6 +17,8 @@ signal show_winner_screen(final_scores)
 signal return_to_lobby
 signal return_to_main_menu
 
+signal drink_orders_updated(num_orders)
+
 const ROOM_PATH = "rooms/"
 const GAME_PORT = 7777
 
@@ -35,6 +37,8 @@ enum GameState { LOBBY, IN_GAME, ROUND_END, GAME_OVER }
 var current_state = GameState.LOBBY
 var total_rounds = 3
 var current_round = 0
+
+var current_room_code = ""
 
 var players = {}
 var killing_player_trigger_id = -1
@@ -78,6 +82,7 @@ func host_game():
 	multiplayer.set_multiplayer_peer(peer)
 	print("Server created! Your join code is: " + room_code)
 	
+	current_room_code = room_code
 	_register_player_locally(1, local_player_name)
 	lobby_created.emit(room_code)
 
@@ -99,6 +104,7 @@ func join_game(room_code):
 		lobby_join_failed.emit("Could not connect to host.")
 		return
 		
+	current_room_code = room_code
 	multiplayer.set_multiplayer_peer(peer)
 
 func _on_player_connected(id):
@@ -116,6 +122,7 @@ func _on_server_disconnected():
 	multiplayer.set_multiplayer_peer(null)
 	players.clear()
 	current_state = GameState.LOBBY
+	current_room_code = ""
 	lobby_join_failed.emit("Lost connection to host.")
 
 func _register_player_locally(id, player_name):
@@ -189,6 +196,21 @@ func start_game_rpc(num_rounds):
 	game_started.emit(total_rounds)
 	print("Client: Game started! %d rounds." % total_rounds)
 
+func _generate_random_order() -> Dictionary:
+	var target_boba = randi_range(0, 5)
+	var target_caffeine = randi_range(0, 70)
+	
+	var r = randi_range(180, 255)
+	var g = randi_range(180, 255)
+	var b = randi_range(180, 255)
+	var target_color = Color(r, g, b, 1.0)
+	
+	return {
+		"target_boba": target_boba,
+		"target_caffeine": target_caffeine,
+		"target_color": target_color
+	}
+
 func _start_next_round():
 	if not multiplayer.is_server():
 		return
@@ -201,12 +223,7 @@ func _start_next_round():
 		if not players[id]["customer_dead"]:
 			players[id]["finished_round"] = false
 			
-	current_order_details = {
-		"drink_name": "Caffeine Bomb",
-		"target_caffeine": 2.0,
-		"target_sweetness": 1.0,
-		"max_caffeine": 3.0
-	}
+	current_order_details = _generate_random_order()
 	
 	start_round_rpc.call(current_round, current_order_details)
 	
@@ -227,32 +244,52 @@ func client_finished_drink(drink_data):
 	print("Host: Received finished drink from player %d" % id)
 	players[id]["finished_round"] = true
 	
-	var time_taken = float(drink_data.get("time_taken", 50.0))
-	var time_score = clamp(50.0 - time_taken, 0.0, 50.0)
+	var customer_died = false
+	var score_for_this_round = 0
+	
+	var time_taken = float(drink_data.get("time_taken", 99.0))
+	var time_score = max(50.0 - round(time_taken), 0.0)
 
 	var caffeine_val = float(drink_data.get("caffeine", 0.0))
-	var sweetness_val = float(drink_data.get("sweetness", 0.0))
+	var target_caffeine = float(current_order_details.get("target_caffeine", 0.0))
 	
-	var target_caffeine = float(current_order_details.get("target_caffeine", 2.0))
-	var target_sweetness = float(current_order_details.get("target_sweetness", 1.0))
+	var caffeine_perfect_low = target_caffeine * 0.95
+	var caffeine_death_high = target_caffeine * 1.05
 	
-	var caffeine_diff = abs(caffeine_val - target_caffeine)
-	var sweetness_diff = abs(sweetness_val - target_sweetness)
+	if target_caffeine == 0.0:
+		caffeine_death_high = 0.5
 	
-	var total_diff = caffeine_diff + sweetness_diff
-	var accuracy_score = clamp(50.0 - (total_diff * 10.0), 0.0, 50.0)
+	var caffeine_score_percent = 0.0
 	
-	var score_for_this_round = roundi(time_score + accuracy_score)
+	if caffeine_val > caffeine_death_high:
+		customer_died = true
+	elif caffeine_val >= caffeine_perfect_low:
+		caffeine_score_percent = 100.0
+	elif caffeine_perfect_low > 0:
+		caffeine_score_percent = (caffeine_val / caffeine_perfect_low) * 100.0
+	else:
+		caffeine_score_percent = 100.0
+
+	var boba_val = int(drink_data.get("boba_scoops", 0))
+	var target_boba = int(current_order_details.get("target_boba", 0))
+	var boba_diff = abs(boba_val - target_boba)
+	var boba_score_percent = max(0.0, (5.0 - boba_diff) / 5.0) * 100.0
 	
-	var max_caffeine = float(current_order_details.get("max_caffeine", 3.0))
-	var customer_died = (caffeine_val > max_caffeine)
+	var color_val = drink_data.get("color", Color.BLACK)
+	var target_color = current_order_details.get("target_color", Color.WHITE)
+	var color_diff = color_val.distance_to(target_color)
+	var color_score_percent = max(0.0, (0.52 - color_diff) / 0.52) * 100.0 
 	
+	var total_accuracy_percent = (caffeine_score_percent + boba_score_percent + color_score_percent) / 3.0
+	var accuracy_score = (total_accuracy_percent / 100.0) * 50.0
+
 	if customer_died:
-		print("Host: Player %d's customer died! (It's a secret...)" % id)
+		print("Host: Player %d's customer died!" % id)
 		players[id]["customer_dead"] = true
 		players[id]["score"] = 0
 		killing_player_trigger_id = id
 	else:
+		score_for_this_round = roundi(time_score + accuracy_score)
 		players[id]["score"] += score_for_this_round
 	
 	_check_if_round_over()
@@ -361,6 +398,7 @@ func return_to_lobby_rpc():
 	current_round = 0
 	killing_player_trigger_id = -1
 	current_order_details = {}
+	total_rounds = 3
 	
 	if players.has(multiplayer.get_unique_id()):
 		players[multiplayer.get_unique_id()]["score"] = 0
@@ -377,7 +415,22 @@ func return_to_lobby_rpc():
 
 @rpc("authority")
 func return_to_main_menu_rpc():
+	current_state = GameState.LOBBY
+	current_room_code = ""
 	return_to_main_menu.emit()
 	if not multiplayer.is_server():
 		multiplayer.set_multiplayer_peer(null)
 		players.clear()
+
+func host_set_drink_orders(num_orders: int):
+	if not multiplayer.is_server():
+		return
+	
+	total_rounds = num_orders
+	update_drink_orders_rpc.call(num_orders)
+	drink_orders_updated.emit(num_orders)
+
+@rpc("authority")
+func update_drink_orders_rpc(num_orders: int):
+	total_rounds = num_orders
+	drink_orders_updated.emit(num_orders)
