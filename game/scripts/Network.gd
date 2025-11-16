@@ -317,5 +317,10 @@ func game_over_normally_rpc(final_scores):
 func game_over_by_customer_death_rpc(killing_player_id, player_name, final_scores, jumpscare_video_index):
 	current_state = GameState.GAME_OVER
 	players = final_scores
+<<<<<<< Updated upstream
 	game_over_by_customer_death.emit(killing_player_id, player_name, final_scores, jumpscare_video_index)
+	print("Client: Game over by CUSTOMER DEATH!")	print("Client: Game over by CUSTOMER DEATH!")
+=======
+	game_over_by_customer_death.emit(killing_player_id, player_name, final_scores)
 	print("Client: Game over by CUSTOMER DEATH!")
+>>>>>>> Stashed changes
