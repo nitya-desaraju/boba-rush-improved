@@ -10,7 +10,7 @@ signal host_started_game
 signal game_started(total_rounds)
 signal round_started(round_number, order_details)
 signal round_ended(scores, current_leaderboard)
-signal game_over_by_customer_death(killing_player_id, player_name, final_scores)
+signal game_over_by_customer_death(killing_player_id, player_name, final_scores, jumpscare_video_index)
 signal game_over_normally(final_scores)
 
 const ROOM_PATH = "rooms/"
@@ -18,6 +18,12 @@ const GAME_PORT = 7777
 
 const MAX_PLAYERS = 10
 const MAX_NAME_LENGTH = 20
+
+const JUMPSCARE_VIDEOS = [
+	"res://videos/scare_1.ogv",
+	"res://videos/scare_2.ogv",
+	"res://videos/scare_3.ogv"
+]
 
 @onready var firebase = get_node("/root/Firebase")
 var peer = ENetMultiplayerPeer.new()
@@ -289,7 +295,9 @@ func _end_game_due_to_customer_death(killing_player_id):
 	print("Host: Game over due to customer death by player %d" % killing_player_id)
 	var player_name = players[killing_player_id]["name"]
 	
-	game_over_by_customer_death_rpc.call(killing_player_id, player_name, players)
+	var video_index = 0
+	video_index = randi() % JUMPSCARE_VIDEOS.size()
+	game_over_by_customer_death_rpc.call(killing_player_id, player_name, players, video_index)
 
 @rpc("authority")
 func end_round_rpc(all_player_data):
@@ -306,8 +314,8 @@ func game_over_normally_rpc(final_scores):
 	print("Client: Game over normally.")
 
 @rpc("authority")
-func game_over_by_customer_death_rpc(killing_player_id, player_name, final_scores):
+func game_over_by_customer_death_rpc(killing_player_id, player_name, final_scores, jumpscare_video_index):
 	current_state = GameState.GAME_OVER
 	players = final_scores
-	game_over_by_customer_death.emit(killing_player_id, player_name, final_scores)
+	game_over_by_customer_death.emit(killing_player_id, player_name, final_scores, jumpscare_video_index)
 	print("Client: Game over by CUSTOMER DEATH!")
