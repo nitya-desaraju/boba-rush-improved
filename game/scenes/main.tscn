@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://gb4ojb27ckth" path="res://assets/wooden-table.png" id="2_jyhfs"]
 [ext_resource type="Texture2D" uid="uid://dkt01fans6vpu" path="res://assets/empty_cup.png" id="3_jyhfs"]
 [ext_resource type="Texture2D" uid="uid://dxhb00eco6pma" path="res://assets/full-shovel.png" id="4_tbgi4"]
-[ext_resource type="Script" uid="uid://cok7chykmj31s" path="res://scenes/full_shovel.gd" id="5_o6xl0"]
+[ext_resource type="Script" path="res://scenes/full_shovel.gd" id="5_o6xl0"]
 [ext_resource type="Texture2D" uid="uid://0os3qmanmcnw" path="res://assets/boba-bin.png" id="5_tefeu"]
 [ext_resource type="Texture2D" uid="uid://xrwfesaeqvew" path="res://assets/blue-bottle.png" id="7_85g3d"]
 [ext_resource type="Texture2D" uid="uid://bipqf461680m3" path="res://assets/green-bottle.png" id="8_choun"]

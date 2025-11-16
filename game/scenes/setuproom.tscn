@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://4u813rhxsdir"]
+
+[ext_resource type="Texture2D" uid="uid://byniunpjk4ns7" path="res://assets/signup-background.png" id="1_hry0e"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="SignupBackground" type="Sprite2D" parent="."]
+position = Vector2(573, 323)
+texture = ExtResource("1_hry0e")
