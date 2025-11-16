@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dkt01fans6vpu"
-path="res://.godot/imported/empty_cup.png-cc24e74cdcb429544452469156b908e3.ctex"
+uid="uid://dxhb00eco6pma"
+path="res://.godot/imported/full-shovel.png-9c053ca214761ef34bef53821eb35791.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/empty_cup.png"
-dest_files=["res://.godot/imported/empty_cup.png-cc24e74cdcb429544452469156b908e3.ctex"]
+source_file="res://assets/full-shovel.png"
+dest_files=["res://.godot/imported/full-shovel.png-9c053ca214761ef34bef53821eb35791.ctex"]
 
 [params]
 
