@@ -1,253 +1,23 @@
-[gd_scene load_steps=13 format=3 uid="uid://by2clyrelccgd"]
+[gd_scene load_steps=16 format=3 uid="uid://by2clyrelccgd"]
 
 [ext_resource type="Texture2D" uid="uid://dcbhmtnruld8o" path="res://assets/pink-background.png" id="1_sugp2"]
 [ext_resource type="Texture2D" uid="uid://gb4ojb27ckth" path="res://assets/wooden-table.png" id="2_jyhfs"]
 [ext_resource type="Texture2D" uid="uid://dkt01fans6vpu" path="res://assets/empty_cup.png" id="3_jyhfs"]
 [ext_resource type="Texture2D" uid="uid://dxhb00eco6pma" path="res://assets/full-shovel.png" id="4_tbgi4"]
-[ext_resource type="Script" path="res://scenes/full_shovel.gd" id="5_o6xl0"]
+[ext_resource type="Script" uid="uid://cok7chykmj31s" path="res://scenes/full_shovel.gd" id="5_o6xl0"]
 [ext_resource type="Texture2D" uid="uid://0os3qmanmcnw" path="res://assets/boba-bin.png" id="5_tefeu"]
 [ext_resource type="Texture2D" uid="uid://xrwfesaeqvew" path="res://assets/blue-bottle.png" id="7_85g3d"]
 [ext_resource type="Texture2D" uid="uid://bipqf461680m3" path="res://assets/green-bottle.png" id="8_choun"]
 [ext_resource type="Texture2D" uid="uid://tscehn5t5byk" path="res://assets/red-bottle.png" id="9_ya4ey"]
+[ext_resource type="Texture2D" uid="uid://e6m0hljj4d1p" path="res://assets/order-sign.png" id="10_ya4ey"]
+[ext_resource type="Texture2D" uid="uid://dxkceq8t2yejg" path="res://assets/show-order.png" id="11_eb6dy"]
+[ext_resource type="Texture2D" uid="uid://xummw4don225" path="res://assets/order-boba-only.png" id="11_trceg"]
+[ext_resource type="FontFile" uid="uid://de1c1rkxkm00i" path="res://assets/fonts/CookieCrisp-L36ly.ttf" id="12_a8y0u"]
+[ext_resource type="Script" uid="uid://c1heipbuxjxjj" path="res://scripts/show_order_button.gd" id="14_a8y0u"]
 
-[sub_resource type="FontFile" id="FontFile_85g3d"]
-subpixel_positioning = 0
-msdf_pixel_range = 14
-msdf_size = 128
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-
-[sub_resource type="FontFile" id="FontFile_choun"]
-subpixel_positioning = 0
-msdf_pixel_range = 14
-msdf_size = 128
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-cache/0/17/0/ascent = 0.0
-cache/0/17/0/descent = 0.0
-cache/0/17/0/underline_position = 0.0
-cache/0/17/0/underline_thickness = 0.0
-cache/0/17/0/scale = 1.0
-cache/0/18/0/ascent = 0.0
-cache/0/18/0/descent = 0.0
-cache/0/18/0/underline_position = 0.0
-cache/0/18/0/underline_thickness = 0.0
-cache/0/18/0/scale = 1.0
-cache/0/19/0/ascent = 0.0
-cache/0/19/0/descent = 0.0
-cache/0/19/0/underline_position = 0.0
-cache/0/19/0/underline_thickness = 0.0
-cache/0/19/0/scale = 1.0
-cache/0/20/0/ascent = 0.0
-cache/0/20/0/descent = 0.0
-cache/0/20/0/underline_position = 0.0
-cache/0/20/0/underline_thickness = 0.0
-cache/0/20/0/scale = 1.0
-cache/0/21/0/ascent = 0.0
-cache/0/21/0/descent = 0.0
-cache/0/21/0/underline_position = 0.0
-cache/0/21/0/underline_thickness = 0.0
-cache/0/21/0/scale = 1.0
-cache/0/22/0/ascent = 0.0
-cache/0/22/0/descent = 0.0
-cache/0/22/0/underline_position = 0.0
-cache/0/22/0/underline_thickness = 0.0
-cache/0/22/0/scale = 1.0
-cache/0/23/0/ascent = 0.0
-cache/0/23/0/descent = 0.0
-cache/0/23/0/underline_position = 0.0
-cache/0/23/0/underline_thickness = 0.0
-cache/0/23/0/scale = 1.0
-cache/0/24/0/ascent = 0.0
-cache/0/24/0/descent = 0.0
-cache/0/24/0/underline_position = 0.0
-cache/0/24/0/underline_thickness = 0.0
-cache/0/24/0/scale = 1.0
-cache/0/25/0/ascent = 0.0
-cache/0/25/0/descent = 0.0
-cache/0/25/0/underline_position = 0.0
-cache/0/25/0/underline_thickness = 0.0
-cache/0/25/0/scale = 1.0
-cache/0/26/0/ascent = 0.0
-cache/0/26/0/descent = 0.0
-cache/0/26/0/underline_position = 0.0
-cache/0/26/0/underline_thickness = 0.0
-cache/0/26/0/scale = 1.0
-cache/0/27/0/ascent = 0.0
-cache/0/27/0/descent = 0.0
-cache/0/27/0/underline_position = 0.0
-cache/0/27/0/underline_thickness = 0.0
-cache/0/27/0/scale = 1.0
-cache/0/28/0/ascent = 0.0
-cache/0/28/0/descent = 0.0
-cache/0/28/0/underline_position = 0.0
-cache/0/28/0/underline_thickness = 0.0
-cache/0/28/0/scale = 1.0
-cache/0/29/0/ascent = 0.0
-cache/0/29/0/descent = 0.0
-cache/0/29/0/underline_position = 0.0
-cache/0/29/0/underline_thickness = 0.0
-cache/0/29/0/scale = 1.0
-cache/0/30/0/ascent = 0.0
-cache/0/30/0/descent = 0.0
-cache/0/30/0/underline_position = 0.0
-cache/0/30/0/underline_thickness = 0.0
-cache/0/30/0/scale = 1.0
-cache/0/31/0/ascent = 0.0
-cache/0/31/0/descent = 0.0
-cache/0/31/0/underline_position = 0.0
-cache/0/31/0/underline_thickness = 0.0
-cache/0/31/0/scale = 1.0
-cache/0/32/0/ascent = 0.0
-cache/0/32/0/descent = 0.0
-cache/0/32/0/underline_position = 0.0
-cache/0/32/0/underline_thickness = 0.0
-cache/0/32/0/scale = 1.0
-cache/0/33/0/ascent = 0.0
-cache/0/33/0/descent = 0.0
-cache/0/33/0/underline_position = 0.0
-cache/0/33/0/underline_thickness = 0.0
-cache/0/33/0/scale = 1.0
-cache/0/34/0/ascent = 0.0
-cache/0/34/0/descent = 0.0
-cache/0/34/0/underline_position = 0.0
-cache/0/34/0/underline_thickness = 0.0
-cache/0/34/0/scale = 1.0
-cache/0/35/0/ascent = 0.0
-cache/0/35/0/descent = 0.0
-cache/0/35/0/underline_position = 0.0
-cache/0/35/0/underline_thickness = 0.0
-cache/0/35/0/scale = 1.0
-cache/0/36/0/ascent = 0.0
-cache/0/36/0/descent = 0.0
-cache/0/36/0/underline_position = 0.0
-cache/0/36/0/underline_thickness = 0.0
-cache/0/36/0/scale = 1.0
-cache/0/37/0/ascent = 0.0
-cache/0/37/0/descent = 0.0
-cache/0/37/0/underline_position = 0.0
-cache/0/37/0/underline_thickness = 0.0
-cache/0/37/0/scale = 1.0
-cache/0/38/0/ascent = 0.0
-cache/0/38/0/descent = 0.0
-cache/0/38/0/underline_position = 0.0
-cache/0/38/0/underline_thickness = 0.0
-cache/0/38/0/scale = 1.0
-cache/0/39/0/ascent = 0.0
-cache/0/39/0/descent = 0.0
-cache/0/39/0/underline_position = 0.0
-cache/0/39/0/underline_thickness = 0.0
-cache/0/39/0/scale = 1.0
-cache/0/40/0/ascent = 0.0
-cache/0/40/0/descent = 0.0
-cache/0/40/0/underline_position = 0.0
-cache/0/40/0/underline_thickness = 0.0
-cache/0/40/0/scale = 1.0
-cache/0/41/0/ascent = 0.0
-cache/0/41/0/descent = 0.0
-cache/0/41/0/underline_position = 0.0
-cache/0/41/0/underline_thickness = 0.0
-cache/0/41/0/scale = 1.0
-cache/0/42/0/ascent = 0.0
-cache/0/42/0/descent = 0.0
-cache/0/42/0/underline_position = 0.0
-cache/0/42/0/underline_thickness = 0.0
-cache/0/42/0/scale = 1.0
-cache/0/43/0/ascent = 0.0
-cache/0/43/0/descent = 0.0
-cache/0/43/0/underline_position = 0.0
-cache/0/43/0/underline_thickness = 0.0
-cache/0/43/0/scale = 1.0
-cache/0/44/0/ascent = 0.0
-cache/0/44/0/descent = 0.0
-cache/0/44/0/underline_position = 0.0
-cache/0/44/0/underline_thickness = 0.0
-cache/0/44/0/scale = 1.0
-cache/0/45/0/ascent = 0.0
-cache/0/45/0/descent = 0.0
-cache/0/45/0/underline_position = 0.0
-cache/0/45/0/underline_thickness = 0.0
-cache/0/45/0/scale = 1.0
-cache/0/46/0/ascent = 0.0
-cache/0/46/0/descent = 0.0
-cache/0/46/0/underline_position = 0.0
-cache/0/46/0/underline_thickness = 0.0
-cache/0/46/0/scale = 1.0
-cache/0/47/0/ascent = 0.0
-cache/0/47/0/descent = 0.0
-cache/0/47/0/underline_position = 0.0
-cache/0/47/0/underline_thickness = 0.0
-cache/0/47/0/scale = 1.0
-cache/0/48/0/ascent = 0.0
-cache/0/48/0/descent = 0.0
-cache/0/48/0/underline_position = 0.0
-cache/0/48/0/underline_thickness = 0.0
-cache/0/48/0/scale = 1.0
-cache/0/49/0/ascent = 0.0
-cache/0/49/0/descent = 0.0
-cache/0/49/0/underline_position = 0.0
-cache/0/49/0/underline_thickness = 0.0
-cache/0/49/0/scale = 1.0
-cache/0/50/0/ascent = 0.0
-cache/0/50/0/descent = 0.0
-cache/0/50/0/underline_position = 0.0
-cache/0/50/0/underline_thickness = 0.0
-cache/0/50/0/scale = 1.0
-cache/0/51/0/ascent = 0.0
-cache/0/51/0/descent = 0.0
-cache/0/51/0/underline_position = 0.0
-cache/0/51/0/underline_thickness = 0.0
-cache/0/51/0/scale = 1.0
-cache/0/52/0/ascent = 0.0
-cache/0/52/0/descent = 0.0
-cache/0/52/0/underline_position = 0.0
-cache/0/52/0/underline_thickness = 0.0
-cache/0/52/0/scale = 1.0
-cache/0/53/0/ascent = 0.0
-cache/0/53/0/descent = 0.0
-cache/0/53/0/underline_position = 0.0
-cache/0/53/0/underline_thickness = 0.0
-cache/0/53/0/scale = 1.0
-cache/0/54/0/ascent = 0.0
-cache/0/54/0/descent = 0.0
-cache/0/54/0/underline_position = 0.0
-cache/0/54/0/underline_thickness = 0.0
-cache/0/54/0/scale = 1.0
-cache/0/55/0/ascent = 0.0
-cache/0/55/0/descent = 0.0
-cache/0/55/0/underline_position = 0.0
-cache/0/55/0/underline_thickness = 0.0
-cache/0/55/0/scale = 1.0
-cache/0/56/0/ascent = 0.0
-cache/0/56/0/descent = 0.0
-cache/0/56/0/underline_position = 0.0
-cache/0/56/0/underline_thickness = 0.0
-cache/0/56/0/scale = 1.0
-cache/0/57/0/ascent = 0.0
-cache/0/57/0/descent = 0.0
-cache/0/57/0/underline_position = 0.0
-cache/0/57/0/underline_thickness = 0.0
-cache/0/57/0/scale = 1.0
-cache/0/58/0/ascent = 0.0
-cache/0/58/0/descent = 0.0
-cache/0/58/0/underline_position = 0.0
-cache/0/58/0/underline_thickness = 0.0
-cache/0/58/0/scale = 1.0
-cache/0/59/0/ascent = 0.0
-cache/0/59/0/descent = 0.0
-cache/0/59/0/underline_position = 0.0
-cache/0/59/0/underline_thickness = 0.0
-cache/0/59/0/scale = 1.0
-
-[sub_resource type="LabelSettings" id="LabelSettings_ya4ey"]
-font = SubResource("FontFile_choun")
-font_size = 47
+[sub_resource type="LabelSettings" id="LabelSettings_jkv2x"]
+font = ExtResource("12_a8y0u")
+font_color = Color(0, 0, 0, 1)
 
 [node name="Node" type="Node"]
 
@@ -287,8 +57,52 @@ position = Vector2(74, 371)
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("9_ya4ey")
 
-[node name="Label" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 23.0
-theme_override_fonts/font = SubResource("FontFile_85g3d")
-label_settings = SubResource("LabelSettings_ya4ey")
+[node name="Order-sign" type="Sprite2D" parent="."]
+z_index = 2
+position = Vector2(557, 352)
+scale = Vector2(4.44441, 3.52319)
+texture = ExtResource("10_ya4ey")
+
+[node name="ColorRect" type="ColorRect" parent="Order-sign"]
+modulate = Color(0.114897, 0.114897, 0.114897, 0.552941)
+z_index = -1
+offset_left = -153.676
+offset_top = -127.441
+offset_right = -113.676
+offset_bottom = -87.4414
+scale = Vector2(58.2006, 659.308)
+
+[node name="Order-boba-only" type="Sprite2D" parent="Order-sign"]
+z_index = 4
+position = Vector2(0.675003, -1.13533)
+scale = Vector2(1.02103, 1.04107)
+texture = ExtResource("11_trceg")
+
+[node name="scoops" type="Label" parent="Order-sign"]
+offset_left = -19.3502
+offset_top = -0.567668
+offset_right = 20.6498
+offset_bottom = 22.4323
+text = "X"
+label_settings = SubResource("LabelSettings_jkv2x")
+
+[node name="caffeine" type="Label" parent="Order-sign"]
+offset_left = -19.8002
+offset_top = 22.7067
+offset_right = 20.1998
+offset_bottom = 45.7067
+text = "X"
+label_settings = SubResource("LabelSettings_jkv2x")
+
+[node name="ShowOrderButton" type="Button" parent="."]
+z_index = 2
+offset_left = 370.0
+offset_top = 43.0
+offset_right = 496.0
+offset_bottom = 109.0
+scale = Vector2(2.23335, 2.08556)
+icon = ExtResource("11_eb6dy")
+flat = true
+script = ExtResource("14_a8y0u")
+
+[connection signal="pressed" from="ShowOrderButton" to="ShowOrderButton" method="_on_pressed"]
