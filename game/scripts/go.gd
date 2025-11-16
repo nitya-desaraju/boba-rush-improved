@@ -10,6 +10,6 @@ func _process(delta: float) -> void:
 	
 
 func _on_pressed() -> void:
-	var next_scene = preload("res://scenes/signin.tscn")
+	var next_scene = preload("res://scenes/main.tscn")
 	print("switching to signin")
 	get_tree().change_scene_to_packed(next_scene)
