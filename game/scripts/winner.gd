@@ -7,7 +7,7 @@ extends Control
 @onready var return_home_button: Button = $HostButtons/ReturnHomeButton
 
 func _ready() -> void:
-	NetworkManager.show_winner_screen.connect(_on_show_winner_screen)
+	Network.show_winner_screen.connect(_on_show_winner_screen)
 	
 	play_again_button.pressed.connect(_on_play_again_pressed)
 	return_home_button.pressed.connect(_on_return_home_pressed)
@@ -27,7 +27,7 @@ func _on_show_winner_screen(final_scores: Dictionary) -> void:
 		host_buttons.show()
 
 func _on_play_again_pressed() -> void:
-	NetworkManager.host_request_play_again()
+	Network.host_request_play_again()
 
 func _on_return_home_pressed() -> void:
-	NetworkManager.host_request_return_to_home()
+	Network.host_request_return_to_home()

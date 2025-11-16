@@ -16,9 +16,9 @@ var _temp_player_name: String
 
 
 func _ready() -> void:
-	NetworkManager.round_ended.connect(_on_round_ended)
-	NetworkManager.game_over_normally.connect(_on_game_over_normally)
-	NetworkManager.game_over_by_customer_death.connect(_on_game_over_by_death)
+	Network.round_ended.connect(_on_round_ended)
+	Network.game_over_normally.connect(_on_game_over_normally)
+	Network.game_over_by_customer_death.connect(_on_game_over_by_death)
 	
 	jumpscare_timer.timeout.connect(_on_jumpscare_timer_timeout)
 	host_next_button.pressed.connect(_on_host_next_button_pressed)
@@ -38,7 +38,7 @@ func _hide_all() -> void:
 
 func _on_round_ended(scores: Dictionary, leaderboard: Dictionary) -> void:
 	_hide_all()
-	title_label.text = "Round %d Complete!" % NetworkManager.current_round
+	title_label.text = "Round %d Complete!" % Network.current_round
 	_populate_leaderboard(leaderboard)
 	
 	title_label.show()
@@ -73,7 +73,7 @@ func _on_game_over_by_death(killing_player_id: int, player_name: String, final_s
 	_temp_final_scores = final_scores
 	_temp_player_name = player_name
 
-	var video_path = NetworkManager.JUMPSCARE_VIDEOS[jumpscare_video_index]
+	var video_path = Network.JUMPSCARE_VIDEOS[jumpscare_video_index]
 	video_player.stream = load(video_path)
 	video_player.play()
 	
@@ -117,9 +117,9 @@ func _on_host_next_button_pressed() -> void:
 	host_next_button.hide()
 	
 	if host_next_button.text == "Next Drink":
-		NetworkManager.host_request_next_round()
+		Network.host_request_next_round()
 	elif host_next_button.text == "Show Winner":
-		NetworkManager.host_request_winner_screen()
+		Network.host_request_winner_screen()
 
 
 func _populate_leaderboard(player_data_dict: Dictionary, show_winner: bool = false) -> void:
