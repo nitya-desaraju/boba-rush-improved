@@ -1,15 +1,26 @@
-[gd_scene load_steps=4 format=3 uid="uid://cv3djgf5g25xj"]
+[gd_scene load_steps=5 format=3 uid="uid://cv3djgf5g25xj"]
 
 [ext_resource type="Texture2D" uid="uid://byniunpjk4ns7" path="res://assets/signup-background.png" id="1_5uod7"]
+[ext_resource type="FontFile" uid="uid://de1c1rkxkm00i" path="res://assets/fonts/CookieCrisp-L36ly.ttf" id="2_044tc"]
 
-[sub_resource type="FontFile" id="FontFile_044tc"]
+[sub_resource type="FontFile" id="FontFile_ndg6w"]
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
 cache/0/16/0/ascent = 0.0
 cache/0/16/0/descent = 0.0
 cache/0/16/0/underline_position = 0.0
 cache/0/16/0/underline_thickness = 0.0
 cache/0/16/0/scale = 1.0
+cache/0/45/0/ascent = 0.0
+cache/0/45/0/descent = 0.0
+cache/0/45/0/underline_position = 0.0
+cache/0/45/0/underline_thickness = 0.0
+cache/0/45/0/scale = 1.0
 
-[sub_resource type="LabelSettings" id="LabelSettings_ndg6w"]
+[sub_resource type="LabelSettings" id="LabelSettings_pbkt5"]
+font = ExtResource("2_044tc")
+font_size = 66
 
 [node name="Signin" type="Node"]
 
@@ -18,8 +29,23 @@ position = Vector2(577, 325)
 texture = ExtResource("1_5uod7")
 
 [node name="Label" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 23.0
-theme_override_fonts/font = SubResource("FontFile_044tc")
-text = "Player Name"
-label_settings = SubResource("LabelSettings_ndg6w")
+offset_left = 208.0
+offset_top = 143.0
+offset_right = 406.0
+offset_bottom = 365.375
+scale = Vector2(1.55609, 1.23444)
+theme_override_fonts/font = SubResource("FontFile_ndg6w")
+theme_override_font_sizes/font_size = 45
+text = "Player
+Name"
+label_settings = SubResource("LabelSettings_pbkt5")
+
+[node name="LineEdit" type="LineEdit" parent="."]
+offset_left = 438.0
+offset_top = 262.0
+offset_right = 526.0
+offset_bottom = 293.0
+scale = Vector2(3.32141, 2.86079)
+placeholder_text = "Type Here"
+max_length = 20
+expand_to_text_length = true
