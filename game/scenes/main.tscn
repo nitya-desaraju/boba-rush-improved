@@ -1,14 +1,15 @@
-[gd_scene load_steps=10 format=3 uid="uid://by2clyrelccgd"]
+[gd_scene load_steps=11 format=3 uid="uid://by2clyrelccgd"]
 
 [ext_resource type="Texture2D" uid="uid://dcbhmtnruld8o" path="res://assets/pink-background.png" id="1_sugp2"]
 [ext_resource type="Texture2D" uid="uid://gb4ojb27ckth" path="res://assets/wooden-table.png" id="2_jyhfs"]
 [ext_resource type="Texture2D" uid="uid://dkt01fans6vpu" path="res://assets/empty_cup.png" id="3_jyhfs"]
 [ext_resource type="Texture2D" uid="uid://dxhb00eco6pma" path="res://assets/full-shovel.png" id="4_tbgi4"]
-[ext_resource type="Script" uid="uid://cok7chykmj31s" path="res://scenes/full_shovel.gd" id="5_o6xl0"]
+[ext_resource type="Script" path="res://scenes/full_shovel.gd" id="5_o6xl0"]
 [ext_resource type="Texture2D" uid="uid://0os3qmanmcnw" path="res://assets/boba-bin.png" id="5_tefeu"]
 [ext_resource type="Texture2D" uid="uid://xrwfesaeqvew" path="res://assets/blue-bottle.png" id="7_85g3d"]
 [ext_resource type="Texture2D" uid="uid://bipqf461680m3" path="res://assets/green-bottle.png" id="8_choun"]
 [ext_resource type="Texture2D" uid="uid://tscehn5t5byk" path="res://assets/red-bottle.png" id="9_ya4ey"]
+[ext_resource type="Texture2D" uid="uid://c60blfim6xl7h" path="res://assets/order-sign.png" id="10_choun"]
 
 [node name="Node" type="Node"]
 
@@ -47,3 +48,15 @@ texture = ExtResource("8_choun")
 position = Vector2(74, 371)
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("9_ya4ey")
+
+[node name="OrderSign" type="Sprite2D" parent="."]
+position = Vector2(618, 282)
+scale = Vector2(6, 6)
+texture = ExtResource("10_choun")
+
+[node name="Button" type="Button" parent="."]
+offset_left = 409.0
+offset_top = 11.0
+offset_right = 734.0
+offset_bottom = 65.0
+text = "Order"

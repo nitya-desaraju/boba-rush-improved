@@ -13,6 +13,6 @@ func _process(delta: float) -> void:
 
 
 func _on_pressed() -> void:
-	var next_scene = preload("res://scenes/main.tscn")
+	var next_scene = preload("res://scenes/setuproom.tscn")
 	print("switching to main")
 	get_tree().change_scene_to_packed(next_scene)
