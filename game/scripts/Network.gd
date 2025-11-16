@@ -24,9 +24,7 @@ const MAX_PLAYERS = 10
 const MAX_NAME_LENGTH = 20
 
 const JUMPSCARE_VIDEOS = [
-	"res://videos/scare_1.ogv",
-	"res://videos/scare_2.ogv",
-	"res://videos/scare_3.ogv"
+	"res://videos/scare_1.mp4"
 ]
 
 @onready var firebase = get_node("/root/Firebase")
