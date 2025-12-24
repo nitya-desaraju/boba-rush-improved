@@ -15,6 +15,10 @@ run/main_scene="uid://c276ea4nvgxd6"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GameManager="*res://scripts/GameManager.gd"
+
 [display]
 
 window/size/viewport_width=2360
@@ -26,4 +30,4 @@ enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg")
 
 [global]
 
-AUTOLOAD=false
+AUTOLOAD=true

@@ -25,10 +25,7 @@ func _on_mouse_exited():
 func _on_pressed():
 	get_tree().change_scene_to_file("res://scenes/signin.tscn")
 
-func _process(_delta):
-	if is_hovered():
-		print("The engine says I am hovered!")
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-# func _process(delta: float) -> void:
-#	pass
+#Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass

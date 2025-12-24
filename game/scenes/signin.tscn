@@ -1,51 +1,43 @@
 [gd_scene load_steps=5 format=3 uid="uid://cv3djgf5g25xj"]
 
-[ext_resource type="Texture2D" uid="uid://byniunpjk4ns7" path="res://assets/signup-background.png" id="1_5uod7"]
-[ext_resource type="FontFile" uid="uid://de1c1rkxkm00i" path="res://assets/fonts/CookieCrisp-L36ly.ttf" id="2_044tc"]
+[ext_resource type="Script" uid="uid://daecawm6mibns" path="res://scenes/signin.gd" id="1_044tc"]
+[ext_resource type="Texture2D" uid="uid://c481jb7l31rw4" path="res://assets/signin_scene.PNG" id="2_ndg6w"]
+[ext_resource type="Texture2D" uid="uid://db6ig7xsww1tu" path="res://assets/createroom_button.png" id="3_pbkt5"]
+[ext_resource type="Texture2D" uid="uid://deycrmu5buc8a" path="res://assets/joinroom_button.png" id="4_1qvg7"]
 
-[sub_resource type="FontFile" id="FontFile_ndg6w"]
-subpixel_positioning = 0
-msdf_pixel_range = 14
-msdf_size = 128
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-cache/0/45/0/ascent = 0.0
-cache/0/45/0/descent = 0.0
-cache/0/45/0/underline_position = 0.0
-cache/0/45/0/underline_thickness = 0.0
-cache/0/45/0/scale = 1.0
+[node name="Signin" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_044tc")
 
-[sub_resource type="LabelSettings" id="LabelSettings_pbkt5"]
-font = ExtResource("2_044tc")
-font_size = 66
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1180, 820)
+texture = ExtResource("2_ndg6w")
 
-[node name="Signin" type="Node"]
-
-[node name="Signup-background" type="Sprite2D" parent="."]
-position = Vector2(577, 325)
-texture = ExtResource("1_5uod7")
-
-[node name="Label" type="Label" parent="."]
-offset_left = 208.0
-offset_top = 143.0
-offset_right = 406.0
-offset_bottom = 365.375
-scale = Vector2(1.55609, 1.23444)
-theme_override_fonts/font = SubResource("FontFile_ndg6w")
-theme_override_font_sizes/font_size = 45
-text = "Player
-Name"
-label_settings = SubResource("LabelSettings_pbkt5")
-
-[node name="LineEdit" type="LineEdit" parent="."]
-offset_left = 438.0
-offset_top = 262.0
-offset_right = 526.0
-offset_bottom = 293.0
-scale = Vector2(3.32141, 2.86079)
+[node name="name" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 497.0
+offset_top = 486.0
+offset_right = 1870.0
+offset_bottom = 728.0
 placeholder_text = "Type Here"
-max_length = 20
-expand_to_text_length = true
+alignment = 1
+max_length = 15
+
+[node name="createButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 1315.0
+offset_top = 1002.0
+offset_right = 2122.0
+offset_bottom = 1467.0
+texture_normal = ExtResource("3_pbkt5")
+stretch_mode = 0
+
+[node name="joinButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 239.0
+offset_top = 1005.0
+offset_right = 1047.0
+offset_bottom = 1469.0
+texture_normal = ExtResource("4_1qvg7")
+stretch_mode = 0
