@@ -26,13 +26,13 @@ func _on_mouse_exited():
 	var tween = create_tween()
 	tween.tween_property(self, "self_modulate", normal, 0.1)
 	
-func _on_open_instructions():
+func _on_open_help():
 	overlay.show()
 	popup.show()
 	start_button.disabled = true
 	self.self_modulate = normal 
 
-func _on_close_instructions():
+func _on_close_help():
 	overlay.hide()
 	popup.hide()
 	start_button.disabled = false

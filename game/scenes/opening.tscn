@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://c276ea4nvgxd6"]
+[gd_scene load_steps=6 format=3 uid="uid://c276ea4nvgxd6"]
 
 [ext_resource type="Texture2D" uid="uid://c74d0y28to0dj" path="res://assets/opening.PNG" id="1_y6ged"]
+[ext_resource type="Texture2D" uid="uid://buialpepv82c5" path="res://assets/help_button.png" id="3_fvetl"]
 [ext_resource type="Script" uid="uid://btw0pk425jtbb" path="res://scenes/start_button.gd" id="3_jo2c7"]
 [ext_resource type="Script" uid="uid://c184rbpjpmacr" path="res://scenes/help_button.gd" id="3_y6ged"]
 
@@ -25,8 +26,13 @@ stretch_mode = 0
 script = ExtResource("3_jo2c7")
 
 [node name="helpButton" type="TextureButton" parent="."]
-offset_right = 1423.0
-offset_bottom = 1025.0
+offset_left = 117.0
+offset_top = 1289.0
+offset_right = 991.0
+offset_bottom = 1799.0
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("3_fvetl")
+stretch_mode = 0
 script = ExtResource("3_y6ged")
 
 [node name="overlay" type="ColorRect" parent="."]
