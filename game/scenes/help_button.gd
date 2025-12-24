@@ -1,0 +1,42 @@
+extends TextureButton
+
+var hovered = Color(0.8, 0.8, 0.8, 1.0)
+var normal = Color(1.0, 1.0, 1.0, 1.0)
+
+@onready var popup = $"helpPopup"
+@onready var overlay = $"overlay"
+@onready var start_button = $"startButton"
+@onready var close_button = $"helpPopup/closeButton"
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	self.self_modulate = normal
+		
+	mouse_entered.connect(_on_mouse_entered)
+	mouse_exited.connect(_on_mouse_exited)
+	
+	pressed.connect(_on_open_help)
+	close_button.pressed.connect(_on_close_help)
+
+func _on_mouse_entered():
+	var tween = create_tween()
+	tween.tween_property(self, "self_modulate", hovered, 0.1)
+	
+func _on_mouse_exited():
+	var tween = create_tween()
+	tween.tween_property(self, "self_modulate", normal, 0.1)
+	
+func _on_open_instructions():
+	overlay.show()
+	popup.show()
+	start_button.disabled = true
+	self.self_modulate = normal 
+
+func _on_close_instructions():
+	overlay.hide()
+	popup.hide()
+	start_button.disabled = false
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass

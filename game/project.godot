@@ -11,18 +11,18 @@ config_version=5
 [application]
 
 config/name="game"
-run/main_scene="uid://bwyoc8ruy8n46"
-config/features=PackedStringArray("4.4", "Forward Plus")
+run/main_scene="uid://c276ea4nvgxd6"
+config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
-[autoload]
+[display]
 
-Firebase="*res://addons/godot-firebase/firebase/firebase.tscn"
-Network="*res://scripts/Network.gd"
+window/size/viewport_width=2360
+window/size/viewport_height=1640
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot-firebase/plugin.cfg", "res://addons/godot_super-wakatime/plugin.cfg")
+enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg")
 
 [global]
 
