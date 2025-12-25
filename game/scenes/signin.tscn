@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cv3djgf5g25xj"]
+[gd_scene load_steps=6 format=3 uid="uid://cv3djgf5g25xj"]
 
 [ext_resource type="Script" uid="uid://daecawm6mibns" path="res://scenes/signin.gd" id="1_044tc"]
 [ext_resource type="Texture2D" uid="uid://c481jb7l31rw4" path="res://assets/signin_scene.PNG" id="2_ndg6w"]
+[ext_resource type="FontFile" uid="uid://bk7mjro22pcvr" path="res://assets/fonts/PoetsenOne-Regular.ttf" id="3_1qvg7"]
 [ext_resource type="Texture2D" uid="uid://db6ig7xsww1tu" path="res://assets/createroom_button.png" id="3_pbkt5"]
 [ext_resource type="Texture2D" uid="uid://deycrmu5buc8a" path="res://assets/joinroom_button.png" id="4_1qvg7"]
 
@@ -20,6 +21,10 @@ offset_left = 497.0
 offset_top = 486.0
 offset_right = 1870.0
 offset_bottom = 728.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_placeholder_color = Color(1, 1, 1, 0.6)
+theme_override_fonts/font = ExtResource("3_1qvg7")
+theme_override_font_sizes/font_size = 100
 placeholder_text = "Type Here"
 alignment = 1
 max_length = 10

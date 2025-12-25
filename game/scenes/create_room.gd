@@ -1,4 +1,4 @@
-extends Control
+extends Control 
 
 const PLAYER_ROW_SCENE = preload("res://scenes/player_row.tscn")
 
@@ -10,6 +10,11 @@ const PLAYER_ROW_SCENE = preload("res://scenes/player_row.tscn")
 @onready var kick_notif = $kickNotif
 
 func _ready():
+	if GameManager.is_host:
+		GameManager.host_game() 
+		if GameManager.room_code == "":
+			GameManager.room_code = str(randi_range(100000, 999999))
+			
 	GameManager.players[1] = GameManager.player_name 
 	host_label.text = GameManager.player_name
 	code_label.text = GameManager.room_code
@@ -59,39 +64,67 @@ func update_round_display():
 	round_label.text = str(GameManager.max_rounds)
 
 func _on_player_joined(id):
+	await get_tree().create_timer(0.5).timeout
+	
 	if GameManager.players.size() >= 10:
 		rpc_id(id, "receive_error", "full")
 		return
 	
-	await get_tree().create_timer(0.2).timeout
+	if GameManager.is_host:
+		rpc_id(id, "sync_room_data", GameManager.room_code, GameManager.player_name, GameManager.max_rounds)
+	
+	_update_list_ui()
+
+@rpc("authority", "call_local")
+func sync_room_data(code, h_name, rounds):
+	GameManager.room_code = code
+	GameManager.max_rounds = rounds
+	
+	host_label.text = h_name 
+	code_label.text = code
+	
+	update_round_display()
+	GameManager.players[1] = h_name 
 	_update_list_ui()
 
 func _update_list_ui(_id = 0):
 	for child in player_list.get_children():
 		child.queue_free()
-	
+
 	for id in GameManager.players:
 		var row = PLAYER_ROW_SCENE.instantiate()
-		
-		var p_label = row.get_node("row/name") 
-		p_label.text = GameManager.players[id]
-		
-
-		var kick_btn = row.get_node("row/kickButton")
-		kick_btn.mouse_entered.connect(func(): create_tween().tween_property(kick_btn, "self_modulate", Color(0.8, 0.8, 0.8, 1), 0.1))
-		kick_btn.mouse_exited.connect(func(): create_tween().tween_property(kick_btn, "self_modulate", Color(1, 1, 1, 1), 0.1))
-		
-		if id != 1:
-			kick_btn.visible = true
-			kick_btn.pressed.connect(func(): _kick_player(id))
-		else:
-			kick_btn.visible = false
-			
 		player_list.add_child(row)
+		
+		var p_label = row.find_child("name") 
+		if p_label:
+			p_label.text = GameManager.players[id]
+
+		var kick_btn = row.find_child("kickButton")
+		if kick_btn:
+			if GameManager.is_host and id != 1:
+				kick_btn.visible = true
+				
+				kick_btn.mouse_entered.connect(func(): 
+					var tw = create_tween()
+					tw.tween_property(kick_btn, "self_modulate", Color(0.8, 0.8, 0.8, 1), 0.1)
+				)
+				kick_btn.mouse_exited.connect(func(): 
+					var tw = create_tween()
+					tw.tween_property(kick_btn, "self_modulate", Color(1, 1, 1, 1), 0.1)
+				)
+				
+				if not kick_btn.pressed.is_connected(_on_kick_clicked):
+					kick_btn.pressed.connect(_on_kick_clicked.bind(id))
+			else:
+				kick_btn.visible = false
+
+
+func _on_kick_clicked(id_to_kick):
+	_kick_player(id_to_kick)
 
 func _kick_player(id):
 	rpc_id(id, "receive_error", "kicked")
-	await get_tree().create_timer(0.1).timeout
+	await get_tree().create_timer(0.2).timeout
 	multiplayer.multiplayer_peer.disconnect_peer(id)
 	_show_temp_image(kick_notif)
 
