@@ -10,7 +10,7 @@ layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_044tc")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="signinScene" type="Sprite2D" parent="."]
 position = Vector2(1180, 820)
 texture = ExtResource("2_ndg6w")
 
@@ -22,7 +22,7 @@ offset_right = 1870.0
 offset_bottom = 728.0
 placeholder_text = "Type Here"
 alignment = 1
-max_length = 15
+max_length = 10
 
 [node name="createButton" type="TextureButton" parent="."]
 layout_mode = 0

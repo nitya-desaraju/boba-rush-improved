@@ -1,0 +1,149 @@
+[gd_scene load_steps=7 format=3 uid="uid://cu3s6rirgt3gk"]
+
+[ext_resource type="Script" uid="uid://drdp8buxxnf1n" path="res://scenes/create_room.gd" id="1_alqp6"]
+[ext_resource type="FontFile" uid="uid://bk7mjro22pcvr" path="res://assets/fonts/PoetsenOne-Regular.ttf" id="3_78kgv"]
+[ext_resource type="Texture2D" uid="uid://rnrpqulc15iw" path="res://assets/minus_button.png" id="3_hugna"]
+[ext_resource type="Texture2D" uid="uid://dgypf4qwvqvdu" path="res://assets/plus_button.png" id="4_iju0h"]
+[ext_resource type="Texture2D" uid="uid://da2mhp2vldelc" path="res://assets/start_button.png" id="5_hdjgt"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_g5yfu"]
+load_path = "res://.godot/imported/createroom_scene.PNG-4562d92d7904700b44fc2786dbd13135.ctex"
+
+[node name="CreateRoom" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_alqp6")
+
+[node name="createScene" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+offset_right = 2360.0
+offset_bottom = 1640.0
+texture = SubResource("CompressedTexture2D_g5yfu")
+
+[node name="code" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 1333.0
+offset_top = 536.0
+offset_right = 2193.0
+offset_bottom = 825.0
+theme_override_colors/default_color = Color(0.75114644, 0.9948136, 0.7417371, 1)
+theme_override_fonts/normal_font = ExtResource("3_78kgv")
+theme_override_font_sizes/normal_font_size = 200
+text = "XXXXXX"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="hostName" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 817.0
+offset_top = 70.0
+offset_right = 2294.0
+offset_bottom = 312.0
+pivot_offset = Vector2(384, 831)
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("3_78kgv")
+theme_override_font_sizes/normal_font_size = 200
+autowrap_mode = 0
+tab_size = 24
+vertical_alignment = 1
+
+[node name="rounds" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 905.0
+offset_top = 623.0
+offset_right = 2438.0
+offset_bottom = 1059.0
+
+[node name="minus" type="TextureButton" parent="rounds"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.565
+anchor_bottom = 0.698
+offset_left = 311.0
+offset_top = 280.0
+offset_right = 64.85498
+offset_bottom = 675.672
+scale = Vector2(0.3, 0.3)
+texture_normal = ExtResource("3_hugna")
+stretch_mode = 5
+
+[node name="round" type="RichTextLabel" parent="rounds"]
+layout_direction = 2
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.172
+anchor_bottom = 0.068
+offset_left = 551.0
+offset_top = 293.0
+offset_right = 407.324
+offset_bottom = 449.352
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("3_78kgv")
+theme_override_font_sizes/normal_font_size = 125
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="plus" type="TextureButton" parent="rounds"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.056
+offset_left = 1184.0
+offset_top = 282.0
+offset_right = 1718.152
+offset_bottom = 982.0
+scale = Vector2(0.3, 0.3)
+texture_normal = ExtResource("4_iju0h")
+stretch_mode = 5
+
+[node name="roundLabel" type="RichTextLabel" parent="rounds"]
+layout_mode = 0
+offset_left = 677.0
+offset_top = 293.0
+offset_right = 1167.0
+offset_bottom = 465.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("3_78kgv")
+theme_override_font_sizes/normal_font_size = 125
+text = "rounds"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="players" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 84.0
+offset_top = 413.0
+offset_right = 1144.0
+offset_bottom = 1556.0
+
+[node name="startGameButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 1448.0
+offset_top = 1229.0
+offset_right = 7607.999
+offset_bottom = 4469.0
+scale = Vector2(0.1, 0.1)
+texture_normal = ExtResource("5_hdjgt")
+stretch_mode = 0
+
+[node name="codeLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 1417.0
+offset_top = 376.0
+offset_right = 2137.0
+offset_bottom = 576.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("3_78kgv")
+theme_override_font_sizes/normal_font_size = 150
+text = "Join code:"
+
+[node name="kickNotif" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 354.0
+offset_top = 680.0
+offset_right = 2244.0
+offset_bottom = 1375.0

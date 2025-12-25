@@ -3,10 +3,10 @@ extends TextureButton
 var hovered = Color(0.8, 0.8, 0.8, 1.0)
 var normal = Color(1.0, 1.0, 1.0, 1.0)
 
-@onready var popup = $"helpPopup"
-@onready var overlay = $"overlay"
-@onready var start_button = $"startButton"
-@onready var close_button = $"helpPopup/closeButton"
+@onready var popup = $"../helpPopup"
+@onready var overlay = $"../overlay"
+@onready var start_button = $"../startButton"
+@onready var close_button = $"../helpPopup/closeButton"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
