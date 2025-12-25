@@ -124,8 +124,11 @@ func _on_kick_clicked(id_to_kick):
 
 func _kick_player(id):
 	rpc_id(id, "receive_error", "kicked")
-	await get_tree().create_timer(0.2).timeout
-	multiplayer.multiplayer_peer.disconnect_peer(id)
+	
+	await get_tree().create_timer(0.1).timeout
+	if multiplayer.is_server():
+		multiplayer.multiplayer_peer.disconnect_peer(id)
+	
 	_show_temp_image(kick_notif)
 
 func _show_temp_image(img_node):
@@ -139,6 +142,16 @@ func _on_start_game_pressed():
 @rpc("any_peer", "call_local")
 func start_the_boba_race():
 	get_tree().change_scene_to_file("res://scenes/BobaKitchen.tscn")
+	
+@rpc("authority")
+func receive_error(type):
+	if type == "kicked":
+		GameManager.last_error = "kicked"
+		multiplayer.multiplayer_peer = null 
+		get_tree().change_scene_to_file("res://scenes/join_room.tscn")
+	elif type == "full":
+		#PUT IN FULL LOGIC
+		pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
