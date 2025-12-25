@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://4u813rhxsdir"]
+[gd_scene load_steps=5 format=3 uid="uid://4u813rhxsdir"]
 
 [ext_resource type="Script" uid="uid://cunvaiw3j7d5s" path="res://scenes/join_room.gd" id="1_x2utn"]
-[ext_resource type="Texture2D" uid="uid://byniunpjk4ns7" path="res://assets/signup-background.png" id="1_yncvu"]
+[ext_resource type="Texture2D" uid="uid://x3t0ctnyoybw" path="res://assets/joinroom_scene.PNG" id="2_vaab7"]
 [ext_resource type="Texture2D" uid="uid://deycrmu5buc8a" path="res://assets/joinroom_button.png" id="3_e4rja"]
+[ext_resource type="FontFile" uid="uid://bk7mjro22pcvr" path="res://assets/fonts/PoetsenOne-Regular.ttf" id="3_q7wqd"]
 
 [node name="JoinRoom" type="Control"]
 layout_mode = 3
@@ -11,26 +12,31 @@ script = ExtResource("1_x2utn")
 
 [node name="joinScene" type="TextureRect" parent="."]
 layout_mode = 0
-offset_left = 40.0
-offset_top = 56.0
-offset_right = 2017.0
-offset_bottom = 1395.0
-texture = ExtResource("1_yncvu")
+offset_right = 2360.0
+offset_bottom = 1640.0
+texture = ExtResource("2_vaab7")
 
 [node name="codeInput" type="LineEdit" parent="."]
 layout_mode = 0
-offset_left = 172.0
-offset_top = 244.0
-offset_right = 948.0
-offset_bottom = 1087.0
+offset_left = 280.0
+offset_top = 540.0
+offset_right = 2080.0
+offset_bottom = 971.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_q7wqd")
+theme_override_font_sizes/font_size = 200
+placeholder_text = "Type Here"
+alignment = 1
+max_length = 6
 
 [node name="joinButton" type="TextureButton" parent="."]
 layout_mode = 0
-offset_left = 1044.0
-offset_top = 445.0
-offset_right = 1938.0
-offset_bottom = 1018.0
+offset_left = 799.0
+offset_top = 1095.0
+offset_right = 1561.0
+offset_bottom = 1531.0
 texture_normal = ExtResource("3_e4rja")
+stretch_mode = 5
 
 [node name="fullRoomNotif" type="TextureRect" parent="."]
 visible = false
