@@ -112,12 +112,19 @@ text = "rounds"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="players" type="VBoxContainer" parent="."]
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+custom_minimum_size = Vector2(1060, 100)
 layout_mode = 0
 offset_left = 84.0
-offset_top = 413.0
+offset_top = 472.0
 offset_right = 1144.0
 offset_bottom = 1556.0
+
+[node name="players" type="VBoxContainer" parent="ScrollContainer"]
+custom_minimum_size = Vector2(1060, 100)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 100
 
 [node name="startGameButton" type="TextureButton" parent="."]
 layout_mode = 0
@@ -139,6 +146,19 @@ theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_fonts/normal_font = ExtResource("3_78kgv")
 theme_override_font_sizes/normal_font_size = 150
 text = "Join code:"
+
+[node name="playerCount" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 629.0
+offset_top = 347.0
+offset_right = 1129.0
+offset_bottom = 462.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("3_78kgv")
+theme_override_font_sizes/normal_font_size = 50
+text = "Players:"
+horizontal_alignment = 2
+vertical_alignment = 1
 
 [node name="kickNotif" type="TextureRect" parent="."]
 visible = false

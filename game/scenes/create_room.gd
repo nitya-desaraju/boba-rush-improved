@@ -1,4 +1,4 @@
-extends Control 
+extends Control
 
 const PLAYER_ROW_SCENE = preload("res://scenes/player_row.tscn")
 
@@ -8,6 +8,7 @@ const PLAYER_ROW_SCENE = preload("res://scenes/player_row.tscn")
 @onready var player_list = $players
 @onready var start_button = $startGameButton
 @onready var kick_notif = $kickNotif
+@onready var player_count = $playerCount
 
 func _ready():
 	if GameManager.is_host:
@@ -15,8 +16,13 @@ func _ready():
 		if GameManager.room_code == "":
 			GameManager.room_code = str(randi_range(100000, 999999))
 			
-	GameManager.players[1] = GameManager.player_name 
-	host_label.text = GameManager.player_name
+	#GameManager.players[1] = GameManager.player_name 
+	#host_label.text = GameManager.player_name
+	if GameManager.is_host:
+			host_label.text = GameManager.player_name
+	else:
+		pass
+		
 	code_label.text = GameManager.room_code
 	
 	update_round_display()
@@ -84,14 +90,25 @@ func sync_room_data(code, h_name, rounds):
 	code_label.text = code
 	
 	update_round_display()
-	GameManager.players[1] = h_name 
+	#GameManager.players[1] = h_name 
 	_update_list_ui()
 
 func _update_list_ui(_id = 0):
+	
 	for child in player_list.get_children():
 		child.queue_free()
-
+		
+	var current_count = GameManager.players.size()
+	player_count.text = "Players: " + str(current_count) + "/10"
+	
+	if current_count == 10:
+		player_count.modulate = Color.RED
+	else:
+		player_count.modulate = Color.BLACK
+		
+	print("--- Redrawing UI for ", GameManager.players.size(), " players ---")
 	for id in GameManager.players:
+		print("Creating row for: ", GameManager.players[id])
 		var row = PLAYER_ROW_SCENE.instantiate()
 		player_list.add_child(row)
 		
@@ -117,7 +134,8 @@ func _update_list_ui(_id = 0):
 					kick_btn.pressed.connect(_on_kick_clicked.bind(id))
 			else:
 				kick_btn.visible = false
-
+				
+	print(GameManager.players)
 
 func _on_kick_clicked(id_to_kick):
 	_kick_player(id_to_kick)
