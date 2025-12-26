@@ -5,7 +5,7 @@ const PLAYER_ROW_SCENE = preload("res://scenes/player_row.tscn")
 @onready var code_label = $code
 @onready var host_label = $hostName
 @onready var round_label = $rounds/round
-@onready var player_list = $players
+@onready var player_list = $ScrollContainer/players
 @onready var start_button = $startGameButton
 @onready var kick_notif = $kickNotif
 @onready var player_count = $playerCount
@@ -94,7 +94,6 @@ func sync_room_data(code, h_name, rounds):
 	_update_list_ui()
 
 func _update_list_ui(_id = 0):
-	
 	for child in player_list.get_children():
 		child.queue_free()
 		
@@ -106,9 +105,7 @@ func _update_list_ui(_id = 0):
 	else:
 		player_count.modulate = Color.BLACK
 		
-	print("--- Redrawing UI for ", GameManager.players.size(), " players ---")
 	for id in GameManager.players:
-		print("Creating row for: ", GameManager.players[id])
 		var row = PLAYER_ROW_SCENE.instantiate()
 		player_list.add_child(row)
 		
@@ -159,7 +156,7 @@ func _on_start_game_pressed():
 
 @rpc("any_peer", "call_local")
 func start_the_boba_race():
-	get_tree().change_scene_to_file("res://scenes/BobaKitchen.tscn")
+	get_tree().change_scene_to_file("res://scenes/kitchen1.tscn")
 	
 @rpc("authority")
 func receive_error(type):
