@@ -1,30 +1,135 @@
-[gd_scene load_steps=12 format=3 uid="uid://vyktqqwa8gy3"]
+[gd_scene load_steps=13 format=3 uid="uid://bkcabruofe4pe"]
 
-[ext_resource type="Script" uid="uid://ddtjbys0t5qkt" path="res://scenes/kitchen_1.gd" id="1_b20nj"]
-[ext_resource type="Texture2D" uid="uid://c1mvppc5vbhh1" path="res://assets/kitchen1.PNG" id="2_sgx6m"]
+[ext_resource type="Script" uid="uid://doj8oe8iljbvw" path="res://scenes/kitchen_1.gd" id="1_b20nj"]
+[ext_resource type="Texture2D" uid="uid://dhgahmmbmhefk" path="res://assets/scoop_full.png" id="2_po3yk"]
+[ext_resource type="Texture2D" uid="uid://bymm5cigaga7r" path="res://assets/scoop_empty.png" id="3_g1yoy"]
 [ext_resource type="Texture2D" uid="uid://dmoaabcachpbi" path="res://assets/next_button.png" id="3_nr1ps"]
-[ext_resource type="Texture2D" uid="uid://c743lo62b6p5" path="res://assets/cup_half1.png" id="3_po3yk"]
-[ext_resource type="Texture2D" uid="uid://dqcq41rl6yxmc" path="res://assets/cup_half2.png" id="4_g1yoy"]
-[ext_resource type="Texture2D" uid="uid://b5ewl1kxv773g" path="res://assets/submit_button.png" id="4_yv8bf"]
-[ext_resource type="Texture2D" uid="uid://dm2epcy1ogple" path="res://assets/cup_half3.png" id="5_vbcfe"]
-[ext_resource type="Texture2D" uid="uid://dv0m6xw4d1et1" path="res://assets/order.png" id="5_xgr6m"]
+[ext_resource type="Texture2D" uid="uid://ce5qd5reaqy8" path="res://assets/kitchen1_scene.PNG" id="4_vbcfe"]
 [ext_resource type="Texture2D" uid="uid://7dtsd54255fb" path="res://assets/cup_full.png" id="6_klax8"]
-[ext_resource type="Texture2D" uid="uid://oljha773hd1v" path="res://assets/dispenser.png" id="6_po3yk"]
-[ext_resource type="Texture2D" uid="uid://cbbvc17ljapam" path="res://assets/cup_empty.png" id="7_g1yoy"]
+[ext_resource type="Texture2D" uid="uid://bi20rdwt87r37" path="res://assets/boba1.png" id="6_r0w7r"]
+[ext_resource type="Texture2D" uid="uid://84bjtyhoat3e" path="res://assets/boba2.png" id="7_156rp"]
+[ext_resource type="Texture2D" uid="uid://8wmeqif8xst4" path="res://assets/boba3.png" id="8_l5msp"]
+[ext_resource type="Texture2D" uid="uid://blvh8rklmn61v" path="res://assets/boba4.png" id="9_3eefl"]
+[ext_resource type="Texture2D" uid="uid://ddysdd0co0ii7" path="res://assets/boba5.png" id="10_cqac3"]
 
-[node name="BobaKitchen" type="Control"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gg8ng"]
+
+[node name="Kitchen1" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-script = ExtResource("1_b20nj")
-
-[node name="kitchen1Scene" type="TextureRect" parent="."]
-layout_mode = 0
 offset_right = 2360.0
 offset_bottom = 1640.0
-texture = ExtResource("2_sgx6m")
+script = ExtResource("1_b20nj")
+scoop_full = ExtResource("2_po3yk")
+scoop_empty = ExtResource("3_g1yoy")
+
+[node name="kitchen1_scene" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("4_vbcfe")
+
+[node name="binArea" type="Area2D" parent="."]
+position = Vector2(234, 725)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="binArea"]
+shape = SubResource("RectangleShape2D_gg8ng")
+
+[node name="cupFull" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 1470.0
+offset_top = 743.0
+offset_right = 1919.0
+offset_bottom = 1472.0
+texture = ExtResource("6_klax8")
+stretch_mode = 5
+
+[node name="cup" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="cup"]
+
+[node name="scoop" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 387.0
+offset_top = 597.0
+offset_right = 1074.0
+offset_bottom = 1121.0
+texture = ExtResource("2_po3yk")
+stretch_mode = 5
+
+[node name="scoopArea" type="Area2D" parent="scoop"]
+position = Vector2(1340, 386)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="scoop/scoopArea"]
+
+[node name="boba1" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 1445.0
+offset_top = 743.0
+offset_right = 1943.0
+offset_bottom = 1472.0
+texture = ExtResource("6_r0w7r")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="boba2" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 1445.0
+offset_top = 743.0
+offset_right = 1943.0
+offset_bottom = 1472.0
+texture = ExtResource("7_156rp")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="boba3" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 1445.0
+offset_top = 743.0
+offset_right = 1943.0
+offset_bottom = 1472.0
+texture = ExtResource("8_l5msp")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="boba4" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 1445.0
+offset_top = 743.0
+offset_right = 1943.0
+offset_bottom = 1472.0
+texture = ExtResource("9_3eefl")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="boba5" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 1445.0
+offset_top = 743.0
+offset_right = 1943.0
+offset_bottom = 1472.0
+texture = ExtResource("10_cqac3")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="scoopEmpty" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="scoopFull" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="nextButton" type="TextureButton" parent="."]
-visible = false
 layout_mode = 0
 offset_left = 2036.0
 offset_top = 680.0
@@ -32,135 +137,3 @@ offset_right = 2294.0
 offset_bottom = 960.0
 texture_normal = ExtResource("3_nr1ps")
 stretch_mode = 5
-
-[node name="colorViewer" type="ColorRect" parent="."]
-layout_mode = 0
-offset_left = 135.0
-offset_top = 1181.0
-offset_right = 617.0
-offset_bottom = 1510.0
-
-[node name="redSlider" type="HSlider" parent="colorViewer"]
-layout_mode = 0
-offset_left = -48.0
-offset_top = -275.0
-offset_right = 212.0
-offset_bottom = -205.0
-
-[node name="greenSlider" type="HSlider" parent="colorViewer"]
-layout_mode = 0
-offset_left = 350.0
-offset_top = -275.0
-offset_right = 610.0
-offset_bottom = -205.0
-
-[node name="blueSlider" type="HSlider" parent="colorViewer"]
-layout_mode = 0
-offset_left = 740.0
-offset_top = -275.0
-offset_right = 1000.0
-offset_bottom = -205.0
-
-[node name="submitButton" type="TextureButton" parent="colorViewer"]
-layout_mode = 0
-offset_left = 508.0
-offset_top = -1.0
-offset_right = 675.0
-offset_bottom = 335.0
-texture_normal = ExtResource("4_yv8bf")
-stretch_mode = 5
-
-[node name="showOrder" type="TextureButton" parent="."]
-layout_mode = 0
-offset_left = 2084.0
-offset_top = 19.0
-offset_right = 2361.0
-offset_bottom = 257.0
-texture_normal = ExtResource("5_xgr6m")
-stretch_mode = 5
-
-[node name="cupEmpty" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 1466.0
-offset_top = 744.0
-offset_right = 1923.0
-offset_bottom = 1474.0
-grow_horizontal = 2
-grow_vertical = 0
-texture = ExtResource("7_g1yoy")
-stretch_mode = 5
-
-[node name="cupHalf1" type="TextureRect" parent="."]
-visible = false
-layout_mode = 0
-offset_left = 1466.0
-offset_top = 564.0
-offset_right = 1923.0
-offset_bottom = 1474.0
-texture = ExtResource("3_po3yk")
-stretch_mode = 5
-
-[node name="cupHalf2" type="TextureRect" parent="."]
-visible = false
-layout_mode = 0
-offset_left = 1466.0
-offset_top = 564.0
-offset_right = 1923.0
-offset_bottom = 1474.0
-texture = ExtResource("4_g1yoy")
-stretch_mode = 5
-
-[node name="cupHalf3" type="TextureRect" parent="."]
-visible = false
-layout_mode = 0
-offset_left = 1466.0
-offset_top = 564.0
-offset_right = 1923.0
-offset_bottom = 1474.0
-texture = ExtResource("5_vbcfe")
-stretch_mode = 5
-
-[node name="cupFull" type="TextureRect" parent="."]
-visible = false
-layout_mode = 0
-offset_left = 1466.0
-offset_top = 744.0
-offset_right = 1923.0
-offset_bottom = 1474.0
-texture = ExtResource("6_klax8")
-stretch_mode = 5
-
-[node name="dispenser" type="TextureRect" parent="."]
-layout_mode = 0
-offset_left = 1625.0
-offset_top = 2.0
-offset_right = 1763.0
-offset_bottom = 601.0
-texture = ExtResource("6_po3yk")
-stretch_mode = 5
-
-[node name="pour" type="Timer" parent="."]
-
-[node name="orderPopup" type="TextureRect" parent="."]
-visible = false
-layout_mode = 0
-offset_left = 546.0
-offset_top = 308.0
-offset_right = 1953.0
-offset_bottom = 1358.0
-
-[node name="targetColor" type="ColorRect" parent="orderPopup"]
-layout_mode = 0
-offset_left = 483.0
-offset_top = 162.0
-offset_right = 1022.0
-offset_bottom = 452.0
-
-[node name="closePopup" type="TextureButton" parent="orderPopup"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0

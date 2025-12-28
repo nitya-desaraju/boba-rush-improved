@@ -1,4 +1,4 @@
-extends Control
+extends Control 
 
 const PLAYER_ROW_SCENE = preload("res://scenes/player_row.tscn")
 
@@ -156,7 +156,7 @@ func _on_start_game_pressed():
 
 @rpc("any_peer", "call_local")
 func start_the_boba_race():
-	get_tree().change_scene_to_file("res://scenes/kitchen1.tscn")
+	get_tree().change_scene_to_file("res://scenes/kitchen2.tscn")
 	
 @rpc("authority")
 func receive_error(type):
