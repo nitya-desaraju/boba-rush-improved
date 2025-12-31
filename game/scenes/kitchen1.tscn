@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bkcabruofe4pe"]
+[gd_scene load_steps=16 format=3 uid="uid://bkcabruofe4pe"]
 
 [ext_resource type="Script" uid="uid://doj8oe8iljbvw" path="res://scenes/kitchen_1.gd" id="1_b20nj"]
 [ext_resource type="Texture2D" uid="uid://dhgahmmbmhefk" path="res://assets/scoop_full.png" id="2_po3yk"]
@@ -11,8 +11,16 @@
 [ext_resource type="Texture2D" uid="uid://8wmeqif8xst4" path="res://assets/boba3.png" id="8_l5msp"]
 [ext_resource type="Texture2D" uid="uid://blvh8rklmn61v" path="res://assets/boba4.png" id="9_3eefl"]
 [ext_resource type="Texture2D" uid="uid://ddysdd0co0ii7" path="res://assets/boba5.png" id="10_cqac3"]
+[ext_resource type="Texture2D" uid="uid://dv0m6xw4d1et1" path="res://assets/order.png" id="12_g1yoy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gg8ng"]
+size = Vector2(103.149994, 45.65)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vbcfe"]
+size = Vector2(38.100006, 72.8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_klax8"]
+size = Vector2(754.60474, 187.74084)
 
 [node name="Kitchen1" type="Control"]
 layout_mode = 3
@@ -30,45 +38,58 @@ offset_bottom = 40.0
 texture = ExtResource("4_vbcfe")
 
 [node name="binArea" type="Area2D" parent="."]
-position = Vector2(234, 725)
+scale = Vector2(10, 10)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="binArea"]
+position = Vector2(71.325005, 106.7)
+scale = Vector2(0.99999976, 0.99999976)
 shape = SubResource("RectangleShape2D_gg8ng")
 
 [node name="cupFull" type="TextureRect" parent="."]
 layout_mode = 0
-offset_left = 1470.0
-offset_top = 743.0
-offset_right = 1919.0
-offset_bottom = 1472.0
+offset_left = 1466.0
+offset_top = 744.0
+offset_right = 1923.0
+offset_bottom = 1474.0
 texture = ExtResource("6_klax8")
 stretch_mode = 5
 
 [node name="cup" type="Area2D" parent="."]
+scale = Vector2(10, 10)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="cup"]
+position = Vector2(169.65, 110.899994)
+scale = Vector2(0.99999976, 0.99999976)
+shape = SubResource("RectangleShape2D_vbcfe")
 
 [node name="scoop" type="TextureRect" parent="."]
 layout_mode = 0
-offset_left = 387.0
-offset_top = 597.0
-offset_right = 1074.0
-offset_bottom = 1121.0
+offset_left = 356.0
+offset_top = 601.0
+offset_right = 1043.0
+offset_bottom = 1125.0
 texture = ExtResource("2_po3yk")
 stretch_mode = 5
 
 [node name="scoopArea" type="Area2D" parent="scoop"]
-position = Vector2(1340, 386)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="scoop/scoopArea"]
+position = Vector2(334.57104, 207.6897)
+rotation = 0.62133723
+shape = SubResource("RectangleShape2D_klax8")
+
+[node name="bobaBin" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="boba1" type="TextureRect" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 1445.0
-offset_top = 743.0
-offset_right = 1943.0
-offset_bottom = 1472.0
+offset_left = 1466.0
+offset_top = 744.0
+offset_right = 1923.0
+offset_bottom = 1474.0
 texture = ExtResource("6_r0w7r")
 expand_mode = 1
 stretch_mode = 5
@@ -76,10 +97,10 @@ stretch_mode = 5
 [node name="boba2" type="TextureRect" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 1445.0
-offset_top = 743.0
-offset_right = 1943.0
-offset_bottom = 1472.0
+offset_left = 1466.0
+offset_top = 744.0
+offset_right = 1923.0
+offset_bottom = 1474.0
 texture = ExtResource("7_156rp")
 expand_mode = 1
 stretch_mode = 5
@@ -87,10 +108,10 @@ stretch_mode = 5
 [node name="boba3" type="TextureRect" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 1445.0
-offset_top = 743.0
-offset_right = 1943.0
-offset_bottom = 1472.0
+offset_left = 1466.0
+offset_top = 744.0
+offset_right = 1923.0
+offset_bottom = 1474.0
 texture = ExtResource("8_l5msp")
 expand_mode = 1
 stretch_mode = 5
@@ -98,10 +119,10 @@ stretch_mode = 5
 [node name="boba4" type="TextureRect" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 1445.0
-offset_top = 743.0
-offset_right = 1943.0
-offset_bottom = 1472.0
+offset_left = 1466.0
+offset_top = 744.0
+offset_right = 1923.0
+offset_bottom = 1474.0
 texture = ExtResource("9_3eefl")
 expand_mode = 1
 stretch_mode = 5
@@ -109,10 +130,10 @@ stretch_mode = 5
 [node name="boba5" type="TextureRect" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 1445.0
-offset_top = 743.0
-offset_right = 1943.0
-offset_bottom = 1472.0
+offset_left = 1466.0
+offset_top = 744.0
+offset_right = 1923.0
+offset_bottom = 1474.0
 texture = ExtResource("10_cqac3")
 expand_mode = 1
 stretch_mode = 5
@@ -137,3 +158,38 @@ offset_right = 2294.0
 offset_bottom = 960.0
 texture_normal = ExtResource("3_nr1ps")
 stretch_mode = 5
+
+[node name="showOrder" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 2084.0
+offset_top = 19.0
+offset_right = 2361.0
+offset_bottom = 257.0
+texture_normal = ExtResource("12_g1yoy")
+stretch_mode = 5
+
+[node name="orderPopup" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="targetColor" type="ColorRect" parent="orderPopup"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="closePopup" type="TextureButton" parent="orderPopup"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="targetScoops" type="RichTextLabel" parent="orderPopup"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="targetCaffeine" type="RichTextLabel" parent="orderPopup"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0

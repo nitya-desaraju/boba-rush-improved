@@ -11,14 +11,24 @@ extends Control
 @onready var scoop = $scoop
 @onready var next_button = $nextButton
 @onready var cup_full = $cupFull
+@onready var order_popup = $orderPopup
 
 var scoops = 0
 var dragging = false
 var has_boba_in_scoop = false
+var drag_offset = Vector2.ZERO
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	cupFull.self_modulate = current_color
+	cup_full.self_modulate = GameManager.player_color
+	
+	$orderPopup/targetColor.color = GameManager.target_color
+	$orderPopup/targetScoops.text = str(GameManager.target_scoops)
+	$orderPopup/targetCaffeine.text = str(GameManager.target_caffeine)
+	order_popup.hide()
+	
+	$showOrder.pressed.connect(_on_show_order_pressed)
+	$orderPopup/closePopup.pressed.connect(_on_close_popup_pressed)
 	
 	next_button.pressed.connect(_on_next_button_pressed)
 	next_button.mouse_entered.connect(func(): 
@@ -31,6 +41,7 @@ func _ready() -> void:
 	)
 	
 	$scoop/scoopArea.area_entered.connect(_on_scoop_touch)
+	
 
 func _input(event):
 	if event is InputEventMouseButton:
@@ -38,15 +49,24 @@ func _input(event):
 			if scoop.get_global_rect().has_point(event.global_position):
 				dragging = event.pressed
 				
+				if dragging:
+					drag_offset = event.global_position - scoop.global_position
+				
 	if event is InputEventMouseMotion and dragging:
-		scoop.global_position = event.global_position - (scoop.size / 2)
+		scoop.global_position = event.global_position - drag_offset
+
+func _on_show_order_pressed():
+	order_popup.show()
+
+func _on_close_popup_pressed():
+	order_popup.hide()
 
 func _on_scoop_touch(area):
 	if area.name == "binArea" and not has_boba_in_scoop:
 		has_boba_in_scoop = true
 		scoop.texture = scoop_full
 
-	elif area.name == "cupArea" and has_boba_in_scoop:
+	elif area.name == "cup" and has_boba_in_scoop and scoops != 5:
 		has_boba_in_scoop = false
 		scoop.texture = scoop_empty
 		_add_boba()
@@ -74,5 +94,5 @@ func _add_boba():
 	scoops = scoops + 1
 
 func _on_next_button_pressed():
+	GameManager.player_scoops = scoops
 	get_tree().change_scene_to_file("res://scenes/kitchen3.tscn")
-	

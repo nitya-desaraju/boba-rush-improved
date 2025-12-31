@@ -164,3 +164,13 @@ offset_bottom = 452.0
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="targetScoops" type="RichTextLabel" parent="orderPopup"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="targetCaffeine" type="RichTextLabel" parent="orderPopup"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0

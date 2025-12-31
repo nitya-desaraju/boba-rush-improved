@@ -1,6 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://dyejk7v2lh5xn"]
+[gd_scene load_steps=10 format=3 uid="uid://dyejk7v2lh5xn"]
 
 [ext_resource type="Script" uid="uid://bxvk4fa72vpq6" path="res://scenes/kitchen_3.gd" id="1_6y3ka"]
+[ext_resource type="Texture2D" uid="uid://dmoaabcachpbi" path="res://assets/next_button.png" id="2_xeo3c"]
+[ext_resource type="Texture2D" uid="uid://7dtsd54255fb" path="res://assets/cup_full.png" id="3_6uv0i"]
+[ext_resource type="Texture2D" uid="uid://bi20rdwt87r37" path="res://assets/boba1.png" id="4_5cycy"]
+[ext_resource type="Texture2D" uid="uid://84bjtyhoat3e" path="res://assets/boba2.png" id="5_8n4ke"]
+[ext_resource type="Texture2D" uid="uid://8wmeqif8xst4" path="res://assets/boba3.png" id="6_ylyih"]
+[ext_resource type="Texture2D" uid="uid://blvh8rklmn61v" path="res://assets/boba4.png" id="7_1p0of"]
+[ext_resource type="Texture2D" uid="uid://ddysdd0co0ii7" path="res://assets/boba5.png" id="8_booxd"]
+[ext_resource type="Texture2D" uid="uid://dv0m6xw4d1et1" path="res://assets/order.png" id="9_6uv0i"]
 
 [node name="Kitchen3" type="Control"]
 layout_mode = 3
@@ -8,6 +16,129 @@ anchors_preset = 0
 script = ExtResource("1_6y3ka")
 
 [node name="kitchen3Scene" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 2360.0
+offset_bottom = 1640.0
+
+[node name="slider" type="HSlider" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 16.0
+
+[node name="stopButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="pourButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="nextButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 2036.0
+offset_top = 680.0
+offset_right = 2294.0
+offset_bottom = 960.0
+texture_normal = ExtResource("2_xeo3c")
+stretch_mode = 5
+
+[node name="cup" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 1466.0
+offset_top = 744.0
+offset_right = 1923.0
+offset_bottom = 1474.0
+texture = ExtResource("3_6uv0i")
+stretch_mode = 5
+
+[node name="boba1" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 1466.0
+offset_top = 744.0
+offset_right = 1923.0
+offset_bottom = 1474.0
+texture = ExtResource("4_5cycy")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="boba2" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 1466.0
+offset_top = 744.0
+offset_right = 1923.0
+offset_bottom = 1474.0
+texture = ExtResource("5_8n4ke")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="boba3" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 1466.0
+offset_top = 744.0
+offset_right = 1923.0
+offset_bottom = 1474.0
+texture = ExtResource("6_ylyih")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="boba4" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 1466.0
+offset_top = 744.0
+offset_right = 1923.0
+offset_bottom = 1474.0
+texture = ExtResource("7_1p0of")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="boba5" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 1466.0
+offset_top = 744.0
+offset_right = 1923.0
+offset_bottom = 1474.0
+texture = ExtResource("8_booxd")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="showOrder" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 2084.0
+offset_top = 19.0
+offset_right = 2361.0
+offset_bottom = 257.0
+texture_normal = ExtResource("9_6uv0i")
+stretch_mode = 5
+
+[node name="orderPopup" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="targetColor" type="ColorRect" parent="orderPopup"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="closePopup" type="TextureButton" parent="orderPopup"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="targetScoops" type="RichTextLabel" parent="orderPopup"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="targetCaffeine" type="RichTextLabel" parent="orderPopup"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0

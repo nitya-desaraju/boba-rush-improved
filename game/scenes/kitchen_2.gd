@@ -17,13 +17,16 @@ extends Control
 @onready var cup_full = $cupFull
 @onready var next_button = $nextButton
 @onready var order_popup = $orderPopup
-@onready var target_color = $orderPopup/targetColor
-@onready var submit_btn = $colorViewer/submitButton
+@onready var submit_button = $colorViewer/submitButton
 
 var current_color: Color = Color.WHITE
 
 func _ready():
-	submit_btn.pressed.connect(_on_submit_button_pressed)
+	$orderPopup/targetColor.color = GameManager.target_color
+	$orderPopup/targetScoops.text = str(GameManager.target_scoops)
+	$orderPopup/targetCaffeine.text = str(GameManager.target_caffeine)
+	
+	submit_button.pressed.connect(_on_submit_button_pressed)
 	next_button.pressed.connect(_on_next_button_pressed)
 	$showOrder.pressed.connect(_on_show_order_pressed)
 	$orderPopup/closePopup.pressed.connect(_on_close_popup_pressed) 
@@ -37,14 +40,14 @@ func _ready():
 		tw.tween_property(next_button, "self_modulate", Color(1, 1, 1, 1), 0.1)
 	)
 	
-	submit_btn.mouse_entered.connect(func(): 
-		if not submit_btn.disabled:
+	submit_button.mouse_entered.connect(func(): 
+		if not submit_button.disabled:
 			var tw = create_tween()
-			tw.tween_property(submit_btn, "self_modulate", Color(0.8, 0.8, 0.8, 1), 0.1)
+			tw.tween_property(submit_button, "self_modulate", Color(0.8, 0.8, 0.8, 1), 0.1)
 	)
-	submit_btn.mouse_exited.connect(func(): 
+	submit_button.mouse_exited.connect(func(): 
 		var tw = create_tween()
-		tw.tween_property(submit_btn, "self_modulate", Color(1, 1, 1, 1), 0.1)
+		tw.tween_property(submit_button, "self_modulate", Color(1, 1, 1, 1), 0.1)
 	)
 	
 	for slider in [red_slider, green_slider, blue_slider]:
@@ -56,7 +59,6 @@ func _ready():
 	#cup.texture = cup_empty
 	next_button.hide()
 	order_popup.hide()
-	_generate_order()
 
 func _on_slider_changed(_value):
 	current_color = Color(red_slider.value, green_slider.value, blue_slider.value)
@@ -68,14 +70,9 @@ func _on_show_order_pressed():
 func _on_close_popup_pressed():
 	order_popup.hide()
 
-func _generate_order():
-	var r = randf_range(0.7, 1.0)
-	var g = randf_range(0.7, 1.0)
-	var b = randf_range(0.7, 1.0)
-	target_color.color = Color(r, g, b)
-
 func _on_submit_button_pressed():
 	$colorViewer/submitButton.disabled = true
+	GameManager.player_color = current_color
 	_play_pour_animation()
 
 func _play_pour_animation():
