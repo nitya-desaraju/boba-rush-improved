@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://dyejk7v2lh5xn"]
+
+[ext_resource type="Script" uid="uid://bxvk4fa72vpq6" path="res://scenes/kitchen_3.gd" id="1_6y3ka"]
+
+[node name="Kitchen3" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_6y3ka")
+
+[node name="kitchen3Scene" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
