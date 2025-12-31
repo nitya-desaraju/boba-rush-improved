@@ -28,6 +28,8 @@ var score_total : int = 0
 var customer_killed : bool = false
 
 var final_scores : Dictionary = {}
+var current_round : int = 1
+var cumulative_scores : Dictionary = {}
 
 func _ready():
 	multiplayer.peer_connected.connect(_on_peer_connected)
@@ -35,7 +37,7 @@ func _ready():
 	generate_random_order()
 
 func generate_random_order():
-	target_color = Color(randf_range(0.7, 1.0), randf_range(0.7, 1.0), randf_range(0.7, 1.0))
+	target_color = Color(randf_range(0.5, 1.0), randf_range(0.5, 1.0), randf_range(0.5, 1.0))
 	target_scoops = randi_range(0, 5)
 	target_caffeine = randi_range(0, 100)
 
@@ -75,6 +77,12 @@ func calculate_scores():
 		score_total = 0 
 	else:
 		score_total = score_color + score_scoops + score_caffeine + score_time
+		
+	#var my_id = multiplayer.get_unique_id()
+	#if not cumulative_scores.has(my_id):
+		#cumulative_scores[my_id] = {"name": player_name, "total": 0}
+	#
+	#cumulative_scores[my_id]["total"] += score_total
 
 
 @rpc("any_peer", "call_local", "reliable")
@@ -93,6 +101,10 @@ func notify_player_finished(p_name, s_total, s_color, s_scoops, s_caffeine, s_ti
 		"killed": killed
 	}
 	
+	if not cumulative_scores.has(id):
+		cumulative_scores[id] = {"name": p_name, "total": 0}
+	cumulative_scores[id]["total"] += s_total
+	
 	if not players_ready_for_leaderboard.has(id):
 		players_ready_for_leaderboard.append(id)
 	
@@ -102,6 +114,15 @@ func notify_player_finished(p_name, s_total, s_color, s_scoops, s_caffeine, s_ti
 func check_all_ready():
 	if players_ready_for_leaderboard.size() >= players.size():
 		rpc("show_host_next_button")
+
+@rpc("authority", "call_local", "reliable")
+func start_next_round():
+	current_round += 1
+	final_scores.clear()
+	generate_random_order() 
+	players_ready_for_leaderboard.clear() 
+	start_game_timer() 
+	get_tree().change_scene_to_file("res://scenes/kitchen2.tscn")
 
 @rpc("authority", "call_local", "reliable")
 func show_host_next_button():

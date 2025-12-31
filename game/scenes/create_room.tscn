@@ -125,7 +125,6 @@ size_flags_vertical = 3
 theme_override_constants/separation = 100
 
 [node name="startGameButton" type="TextureButton" parent="."]
-visible = false
 layout_mode = 0
 offset_left = 1448.0
 offset_top = 1229.0
@@ -168,6 +167,7 @@ offset_right = 2244.0
 offset_bottom = 1375.0
 
 [node name="wait" type="RichTextLabel" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 1373.0
 offset_top = 1150.0
