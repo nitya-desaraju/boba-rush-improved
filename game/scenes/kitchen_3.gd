@@ -90,7 +90,7 @@ func _on_stop_button_pressed():
 	is_moving = false
 	stop_button.disabled = true
 	pour_button.disabled = false 
-	GameManager.player_caffeine = int(slider.value)
+	GameManager.player_caffeine = int(round(slider.value))
 
 func _on_pour_button_pressed():
 	pour_button.disabled = true 
