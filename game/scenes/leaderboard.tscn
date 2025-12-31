@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://ck8k5yd4k3eit"]
+[gd_scene load_steps=7 format=3 uid="uid://ck8k5yd4k3eit"]
 
 [ext_resource type="Script" uid="uid://cu3b5ghkqruwd" path="res://scenes/leaderboard.gd" id="1_mrg81"]
+[ext_resource type="Texture2D" uid="uid://k3qvoy4ltagp" path="res://assets/leaderboard.PNG" id="2_6lrio"]
+[ext_resource type="Texture2D" uid="uid://4kky845kdsla" path="res://assets/new_button.png" id="3_ldk02"]
+[ext_resource type="Texture2D" uid="uid://c03mwkrnbvir" path="res://assets/menu_button.png" id="4_sg475"]
+[ext_resource type="Texture2D" uid="uid://cem2egdqewr6x" path="res://assets/next_round.png" id="5_mhq7p"]
+[ext_resource type="FontFile" uid="uid://bk7mjro22pcvr" path="res://assets/fonts/PoetsenOne-Regular.ttf" id="6_otsex"]
 
 [node name="Leaderboard" type="Control"]
 layout_mode = 3
@@ -11,11 +16,14 @@ script = ExtResource("1_mrg81")
 layout_mode = 0
 offset_right = 2360.0
 offset_bottom = 1640.0
+texture = ExtResource("2_6lrio")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 403.0
+offset_top = 469.0
+offset_right = 1957.0
+offset_bottom = 1191.0
 
 [node name="players" type="VBoxContainer" parent="ScrollContainer"]
 layout_mode = 2
@@ -23,22 +31,42 @@ layout_mode = 2
 [node name="newButton" type="TextureButton" parent="."]
 visible = false
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 403.0
+offset_top = 1250.0
+offset_right = 1231.0
+offset_bottom = 1460.0
+scale = Vector2(0.7, 0.7)
+texture_normal = ExtResource("3_ldk02")
 
 [node name="menuButton" type="TextureButton" parent="."]
 visible = false
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 1380.0
+offset_top = 1250.0
+offset_right = 2209.0
+offset_bottom = 1460.0
+scale = Vector2(0.7, 0.7)
+texture_normal = ExtResource("4_sg475")
 
 [node name="nextRoundButton" type="TextureButton" parent="."]
 visible = false
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 783.1
+offset_top = 1250.0
+offset_right = 1917.1
+offset_bottom = 1464.0
+scale = Vector2(0.7, 0.7)
+texture_normal = ExtResource("5_mhq7p")
 
 [node name="roundLabel" type="RichTextLabel" parent="."]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 1585.0
+offset_top = 170.0
+offset_right = 2110.0
+offset_bottom = 456.0
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_fonts/normal_font = ExtResource("6_otsex")
+theme_override_font_sizes/normal_font_size = 100
+text = "Round 2/4"
+horizontal_alignment = 2
+vertical_alignment = 1

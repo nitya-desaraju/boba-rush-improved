@@ -1,3 +1,34 @@
-[gd_scene format=3 uid="uid://bcxnun4itl17y"]
+[gd_scene load_steps=3 format=3 uid="uid://bcxnun4itl17y"]
+
+[ext_resource type="Texture2D" uid="uid://dhvea06vqtcbe" path="res://assets/second_row.png" id="1_c0m2p"]
+[ext_resource type="FontFile" uid="uid://bk7mjro22pcvr" path="res://assets/fonts/PoetsenOne-Regular.ttf" id="2_1ihaj"]
 
 [node name="SecondRow" type="Node2D"]
+
+[node name="secondRow" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_c0m2p")
+
+[node name="name" type="RichTextLabel" parent="."]
+offset_left = 60.0
+offset_top = -25.0
+offset_right = 1210.0
+offset_bottom = 195.0
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_fonts/normal_font = ExtResource("2_1ihaj")
+theme_override_font_sizes/normal_font_size = 100
+text = "2. Nitya"
+vertical_alignment = 1
+
+[node name="score" type="RichTextLabel" parent="."]
+offset_left = 1125.0
+offset_top = 2.0
+offset_right = 1505.0
+offset_bottom = 177.0
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_fonts/normal_font = ExtResource("2_1ihaj")
+theme_override_font_sizes/normal_font_size = 100
+text = "80"
+horizontal_alignment = 2
+vertical_alignment = 1
