@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bhhna88mjo7xm" path="res://assets/scoring.PNG" id="2_6mxqy"]
 [ext_resource type="FontFile" uid="uid://bk7mjro22pcvr" path="res://assets/fonts/PoetsenOne-Regular.ttf" id="3_wpf3y"]
 [ext_resource type="Texture2D" uid="uid://c7m2vtpk345f8" path="res://assets/next_btn.png" id="4_jvypo"]
-[ext_resource type="Texture2D" uid="uid://be34v2xfw67bg" path="res://scenes/waiting_label.png" id="5_d10ki"]
+[ext_resource type="Texture2D" uid="uid://c6r4gijv1gnsk" path="res://assets/waiting_label.png" id="5_6mxqy"]
 
 [node name="Scoring" type="Control"]
 layout_mode = 3
@@ -101,7 +101,7 @@ offset_top = 1203.0
 offset_right = 2292.0
 offset_bottom = 1552.0
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("5_d10ki")
+texture = ExtResource("5_6mxqy")
 expand_mode = 1
 stretch_mode = 5
 

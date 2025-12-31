@@ -1,0 +1,44 @@
+[gd_scene load_steps=2 format=3 uid="uid://ck8k5yd4k3eit"]
+
+[ext_resource type="Script" uid="uid://cu3b5ghkqruwd" path="res://scenes/leaderboard.gd" id="1_mrg81"]
+
+[node name="Leaderboard" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_mrg81")
+
+[node name="leaderboardScene" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 2360.0
+offset_bottom = 1640.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="players" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+
+[node name="newButton" type="TextureButton" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="menuButton" type="TextureButton" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="nextRoundButton" type="TextureButton" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="roundLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
