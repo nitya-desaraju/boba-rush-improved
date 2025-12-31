@@ -149,7 +149,7 @@ func _kick_player(id):
 
 func _show_temp_image(img_node):
 	img_node.show()
-	await get_tree().create_timer(5.0).timeout
+	await get_tree().create_timer(3.0).timeout
 	img_node.hide()
 
 func _on_start_game_pressed():
