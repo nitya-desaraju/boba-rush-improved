@@ -71,10 +71,13 @@ func update_round_display():
 	round_label.text = str(GameManager.max_rounds)
 
 func _on_player_joined(id):
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(0.1).timeout
 	
 	if GameManager.players.size() >= 10:
 		rpc_id(id, "receive_error", "full")
+		await get_tree().create_timer(0.2).timeout
+		if multiplayer.is_server():
+			multiplayer.multiplayer_peer.disconnect_peer(id)
 		return
 	
 	if GameManager.is_host:
