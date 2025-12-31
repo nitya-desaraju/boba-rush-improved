@@ -1,0 +1,120 @@
+[gd_scene load_steps=6 format=3 uid="uid://c08neicq7h5l8"]
+
+[ext_resource type="Script" uid="uid://bv2w7sqw1qf0v" path="res://scenes/scoring.gd" id="1_0wn6k"]
+[ext_resource type="Texture2D" uid="uid://bhhna88mjo7xm" path="res://assets/scoring.PNG" id="2_6mxqy"]
+[ext_resource type="FontFile" uid="uid://bk7mjro22pcvr" path="res://assets/fonts/PoetsenOne-Regular.ttf" id="3_wpf3y"]
+[ext_resource type="Texture2D" uid="uid://c7m2vtpk345f8" path="res://assets/next_btn.png" id="4_jvypo"]
+[ext_resource type="Texture2D" uid="uid://be34v2xfw67bg" path="res://scenes/waiting_label.png" id="5_d10ki"]
+
+[node name="Scoring" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_0wn6k")
+
+[node name="scoringScene" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 2360.0
+offset_bottom = 1640.0
+texture = ExtResource("2_6mxqy")
+
+[node name="colorScore" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 446.0
+offset_top = 578.0
+offset_right = 906.0
+offset_bottom = 769.0
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_fonts/normal_font = ExtResource("3_wpf3y")
+theme_override_font_sizes/normal_font_size = 125
+text = "18/20
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="scoopScore" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 1429.0
+offset_top = 539.0
+offset_right = 1835.0
+offset_bottom = 797.0
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_fonts/normal_font = ExtResource("3_wpf3y")
+theme_override_font_sizes/normal_font_size = 125
+text = "18/20
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="caffeineScore" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 185.0
+offset_top = 856.0
+offset_right = 1190.0
+offset_bottom = 1191.0
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_fonts/normal_font = ExtResource("3_wpf3y")
+theme_override_font_sizes/normal_font_size = 125
+text = "18/20"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="timeScore" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 1373.0
+offset_top = 911.0
+offset_right = 1910.0
+offset_bottom = 1147.0
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_fonts/normal_font = ExtResource("3_wpf3y")
+theme_override_font_sizes/normal_font_size = 125
+text = "38/40"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="totalScore" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 818.0
+offset_top = 1007.0
+offset_right = 1751.0
+offset_bottom = 1554.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("3_wpf3y")
+theme_override_font_sizes/normal_font_size = 150
+text = "97/100"
+vertical_alignment = 1
+
+[node name="nextButton" type="TextureButton" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 1424.0
+offset_top = 1160.0
+offset_right = 2348.0
+offset_bottom = 1656.0
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("4_jvypo")
+stretch_mode = 5
+
+[node name="waitingLabel" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 1422.0
+offset_top = 1203.0
+offset_right = 2292.0
+offset_bottom = 1552.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_d10ki")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="killedLabel" type="RichTextLabel" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 303.0
+offset_top = 912.0
+offset_right = 1123.0
+offset_bottom = 1194.0
+theme_override_colors/default_color = Color(1, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("3_wpf3y")
+theme_override_font_sizes/normal_font_size = 100
+text = "YOU KILLED THE CUSTOMER"
+horizontal_alignment = 1
+vertical_alignment = 1
