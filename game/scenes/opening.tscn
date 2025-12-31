@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://c276ea4nvgxd6"]
+[gd_scene load_steps=8 format=3 uid="uid://c276ea4nvgxd6"]
 
 [ext_resource type="Texture2D" uid="uid://btk3hitj8lbbs" path="res://assets/opening_scene.PNG" id="1_fvetl"]
 [ext_resource type="Texture2D" uid="uid://buialpepv82c5" path="res://assets/help_button.png" id="3_fvetl"]
 [ext_resource type="Script" uid="uid://btw0pk425jtbb" path="res://scenes/start_button.gd" id="3_jo2c7"]
 [ext_resource type="Script" uid="uid://c184rbpjpmacr" path="res://scenes/help_button.gd" id="3_y6ged"]
+[ext_resource type="Texture2D" uid="uid://rctqj722wnt2" path="res://assets/help_popup.png" id="5_drfco"]
+[ext_resource type="Texture2D" uid="uid://cd25hlstrle8m" path="res://assets/kick_button.png" id="5_jo2c7"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_gafq3"]
 load_path = "res://.godot/imported/start_button.png-19090c67de45e4a1b6aad921f3f72e84.ctex"
@@ -45,15 +47,18 @@ color = Color(0, 0, 0, 0.49803922)
 
 [node name="helpPopup" type="TextureRect" parent="."]
 visible = false
-offset_left = 236.0
-offset_top = 164.0
-offset_right = 2596.0
-offset_bottom = 1804.0
-scale = Vector2(0.8, 0.8)
+offset_left = 130.0
+offset_top = 110.0
+offset_right = 2230.0
+offset_bottom = 1530.0
+texture = ExtResource("5_drfco")
+stretch_mode = 5
 
 [node name="closeButton" type="TextureButton" parent="helpPopup"]
 layout_mode = 0
-offset_left = 622.49994
-offset_top = 316.24997
-offset_right = 1617.4998
-offset_bottom = 988.7499
+offset_left = 990.0
+offset_top = 1175.0
+offset_right = 1110.0
+offset_bottom = 1305.0
+texture_normal = ExtResource("5_jo2c7")
+stretch_mode = 5

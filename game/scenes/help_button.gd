@@ -1,4 +1,4 @@
-extends TextureButton
+extends TextureButton 
 
 var hovered = Color(0.8, 0.8, 0.8, 1.0)
 var normal = Color(1.0, 1.0, 1.0, 1.0)
@@ -17,6 +17,15 @@ func _ready():
 	
 	pressed.connect(_on_open_help)
 	close_button.pressed.connect(_on_close_help)
+	
+	close_button.mouse_entered.connect(func(): 
+		var tw = create_tween()
+		tw.tween_property(close_button, "self_modulate", Color(0.8, 0.8, 0.8, 1), 0.1)
+	)
+	close_button.mouse_exited.connect(func(): 
+		var tw = create_tween()
+		tw.tween_property(close_button, "self_modulate", Color(1, 1, 1, 1), 0.1)
+	)
 
 func _on_mouse_entered():
 	var tween = create_tween()
