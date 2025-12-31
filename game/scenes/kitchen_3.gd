@@ -2,13 +2,12 @@ extends Control
 
 @onready var slider = $slider
 @onready var stop_button = $stopButton
-@onready var pour_button = $pourButton
 @onready var next_button = $nextButton
 @onready var cup = $cup
 @onready var order_popup = $orderPopup
 @onready var overlay = $overlay
 
-var slider_speed = 100.0
+var slider_speed = 120.0
 var direction = 1
 var is_moving = true
 
@@ -45,18 +44,6 @@ func _ready() -> void:
 		tw.tween_property(stop_button, "self_modulate", Color(1, 1, 1, 1), 0.1)
 	)
 	
-	pour_button.pressed.connect(_on_pour_button_pressed)
-	pour_button.mouse_entered.connect(func(): 
-		var tw = create_tween()
-		tw.tween_property(pour_button, "self_modulate", Color(0.8, 0.8, 0.8, 1), 0.1)
-	)
-	pour_button.mouse_exited.connect(func(): 
-		var tw = create_tween()
-		tw.tween_property(pour_button, "self_modulate", Color(1, 1, 1, 1), 0.1)
-	)
-	
-	pour_button.disabled = true 
-	next_button.hide()
 
 func _process(delta):
 	if is_moving:
@@ -92,16 +79,8 @@ func _show_scoops(count):
 func _on_stop_button_pressed():
 	is_moving = false
 	stop_button.disabled = true
-	pour_button.disabled = false 
 	GameManager.player_caffeine = int(round(slider.value))
 
-func _on_pour_button_pressed():
-	pour_button.disabled = true 
-	play_pouring_animation()
-
-func play_pouring_animation():
-	await get_tree().create_timer(2.0).timeout 
-	next_button.show()
 
 func _on_next_button_pressed():
 	get_tree().change_scene_to_file("res://scenes/scoring.tscn")

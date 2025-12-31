@@ -1,8 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://dyejk7v2lh5xn"]
+[gd_scene load_steps=12 format=3 uid="uid://dyejk7v2lh5xn"]
 
 [ext_resource type="Script" uid="uid://bxvk4fa72vpq6" path="res://scenes/kitchen_3.gd" id="1_6y3ka"]
+[ext_resource type="Texture2D" uid="uid://dtcamknlr0ogf" path="res://assets/kitchen3_scene.PNG" id="2_8n4ke"]
 [ext_resource type="Texture2D" uid="uid://dmoaabcachpbi" path="res://assets/next_button.png" id="2_xeo3c"]
 [ext_resource type="Texture2D" uid="uid://7dtsd54255fb" path="res://assets/cup_full.png" id="3_6uv0i"]
+[ext_resource type="Texture2D" uid="uid://b7i1x5lewf44i" path="res://assets/stop_button.png" id="3_ylyih"]
 [ext_resource type="Texture2D" uid="uid://bi20rdwt87r37" path="res://assets/boba1.png" id="4_5cycy"]
 [ext_resource type="Texture2D" uid="uid://84bjtyhoat3e" path="res://assets/boba2.png" id="5_8n4ke"]
 [ext_resource type="Texture2D" uid="uid://8wmeqif8xst4" path="res://assets/boba3.png" id="6_ylyih"]
@@ -19,21 +21,26 @@ script = ExtResource("1_6y3ka")
 layout_mode = 0
 offset_right = 2360.0
 offset_bottom = 1640.0
+texture = ExtResource("2_8n4ke")
 
 [node name="slider" type="HSlider" parent="."]
 layout_mode = 0
-offset_right = 8.0
-offset_bottom = 16.0
+offset_left = 304.0
+offset_top = 1083.0
+offset_right = 595.6666
+offset_bottom = 1119.3333
+scale = Vector2(3, 3)
+editable = false
 
 [node name="stopButton" type="TextureButton" parent="."]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="pourButton" type="TextureButton" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 540.0
+offset_top = 1281.0
+offset_right = 1376.0
+offset_bottom = 1761.0
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("3_ylyih")
+stretch_mode = 5
 
 [node name="nextButton" type="TextureButton" parent="."]
 layout_mode = 0
@@ -131,6 +138,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="targetColor" type="ColorRect" parent="orderPopup"]
+visible = false
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0

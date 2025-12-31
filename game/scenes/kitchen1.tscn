@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bkcabruofe4pe"]
+[gd_scene load_steps=17 format=3 uid="uid://bkcabruofe4pe"]
 
 [ext_resource type="Script" uid="uid://doj8oe8iljbvw" path="res://scenes/kitchen_1.gd" id="1_b20nj"]
 [ext_resource type="Texture2D" uid="uid://dhgahmmbmhefk" path="res://assets/scoop_full.png" id="2_po3yk"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://ce5qd5reaqy8" path="res://assets/kitchen1_scene.PNG" id="4_vbcfe"]
 [ext_resource type="Texture2D" uid="uid://7dtsd54255fb" path="res://assets/cup_full.png" id="6_klax8"]
 [ext_resource type="Texture2D" uid="uid://bi20rdwt87r37" path="res://assets/boba1.png" id="6_r0w7r"]
+[ext_resource type="Texture2D" uid="uid://dgw71umf2h51e" path="res://assets/boba_bin.png" id="6_vbcfe"]
 [ext_resource type="Texture2D" uid="uid://84bjtyhoat3e" path="res://assets/boba2.png" id="7_156rp"]
 [ext_resource type="Texture2D" uid="uid://8wmeqif8xst4" path="res://assets/boba3.png" id="8_l5msp"]
 [ext_resource type="Texture2D" uid="uid://blvh8rklmn61v" path="res://assets/boba4.png" id="9_3eefl"]
@@ -80,8 +81,13 @@ shape = SubResource("RectangleShape2D_klax8")
 
 [node name="bobaBin" type="TextureRect" parent="."]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 199.0
+offset_top = 836.0
+offset_right = 1227.0
+offset_bottom = 1304.0
+texture = ExtResource("6_vbcfe")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="boba1" type="TextureRect" parent="."]
 visible = false
