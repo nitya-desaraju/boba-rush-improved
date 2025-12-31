@@ -18,11 +18,12 @@ var target_caffeine : int
 var player_color : Color = Color.WHITE
 var player_scoops : int = 0
 var player_caffeine : int = 0
-
+var start_time : float = 0.0
 
 var score_color : int = 0
 var score_scoops : int = 0
 var score_caffeine : int = 0
+var score_time : int = 0
 var score_total : int = 0
 var customer_killed : bool = false
 
@@ -38,8 +39,15 @@ func generate_random_order():
 	target_scoops = randi_range(0, 5)
 	target_caffeine = randi_range(0, 100)
 
+@rpc("authority", "call_local", "reliable")
+func start_game_timer():
+	start_time = Time.get_unix_time_from_system()
+
 func calculate_scores():
 	customer_killed = false
+	var end_time = Time.get_unix_time_from_system()
+	var elapsed = int(end_time - start_time)
+	score_time = max(0, 40 - elapsed)
 	
 	var color_diff = (abs(target_color.r - player_color.r) + 
 					  abs(target_color.g - player_color.g) + 
@@ -66,13 +74,14 @@ func calculate_scores():
 	if customer_killed:
 		score_total = 0 
 	else:
-		score_total = score_color + score_scoops + score_caffeine
+		score_total = score_color + score_scoops + score_caffeine + score_time
 
 
 @rpc("any_peer", "call_local", "reliable")
-func notify_player_finished(p_name, s_total, s_color, s_scoops, s_caffeine, killed):
+func notify_player_finished(p_name, s_total, s_color, s_scoops, s_caffeine, s_time, killed):
 	var id = multiplayer.get_remote_sender_id()
-	if id == 0: id = multiplayer.get_unique_id()
+	if id == 0: 
+		id = multiplayer.get_unique_id()
 	
 	final_scores[id] = {
 		"name": p_name,
@@ -80,6 +89,7 @@ func notify_player_finished(p_name, s_total, s_color, s_scoops, s_caffeine, kill
 		"color": s_color,
 		"scoops": s_scoops,
 		"caffeine": s_caffeine,
+		"time": s_time,
 		"killed": killed
 	}
 	

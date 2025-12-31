@@ -152,6 +152,7 @@ func _show_temp_image(img_node):
 	img_node.hide()
 
 func _on_start_game_pressed():
+	GameManager.start_game_timer.rpc()
 	rpc("start_the_boba_race")
 
 @rpc("any_peer", "call_local")

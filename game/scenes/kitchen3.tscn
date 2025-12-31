@@ -136,6 +136,7 @@ offset_bottom = 1640.0
 color = Color(0, 0, 0, 0.49803922)
 
 [node name="orderPopup" type="TextureRect" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 740.0
 offset_top = 112.0
