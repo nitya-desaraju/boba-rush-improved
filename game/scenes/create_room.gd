@@ -181,8 +181,9 @@ func receive_error(type):
 		multiplayer.multiplayer_peer = null 
 		get_tree().change_scene_to_file("res://scenes/join_room.tscn")
 	elif type == "full":
-		#PUT IN FULL LOGIC
-		pass
+		GameManager.last_error = "full"
+		multiplayer.multiplayer_peer = null
+		get_tree().change_scene_to_file("res://scenes/join_room.tscn")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

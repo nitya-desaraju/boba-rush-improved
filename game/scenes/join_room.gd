@@ -12,6 +12,10 @@ func _ready():
 	if GameManager.last_error == "kicked":
 		_show_temp_image(kicked_notif)
 		GameManager.last_error = "" 
+		
+	elif GameManager.last_error == "full":
+		_show_temp_image(fullroom_notif)
+		GameManager.last_error = ""
 
 func _on_join_button_pressed():
 	var code = code_input.text.strip_edges()
