@@ -4,10 +4,9 @@ extends Control
 @onready var fullroom_notif = $fullRoomNotif
 @onready var kicked_notif = $kickedNotif
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	$joinButton.pressed.connect(_on_join_button_pressed)
+	GameManager.room_code = ""
 	
 	if GameManager.last_error == "kicked":
 		_show_temp_image(kicked_notif)
@@ -19,8 +18,13 @@ func _ready():
 
 func _on_join_button_pressed():
 	var code = code_input.text.strip_edges()
-	if code == "": return
-	GameManager.join_game("127.0.0.1") 
+	if code == "": 
+		return
+	
+	GameManager.room_code = code
+	GameManager.is_host = false
+	
+	GameManager.join_game("127.0.0.1") #CHANGE TO RENDER URL
 	
 	if not multiplayer.connected_to_server.is_connected(_change_to_lobby):
 		multiplayer.connected_to_server.connect(_change_to_lobby)
@@ -30,6 +34,7 @@ func _change_to_lobby():
 
 @rpc("authority")
 func receive_error(type):
+	multiplayer.multiplayer_peer = null
 	if type == "full":
 		_show_temp_image(fullroom_notif)
 	elif type == "kicked":
@@ -40,7 +45,3 @@ func _show_temp_image(img_node):
 	img_node.show()
 	await get_tree().create_timer(3.0).timeout
 	img_node.hide()
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass

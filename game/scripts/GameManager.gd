@@ -4,7 +4,10 @@ var player_name : String = ""
 var room_code : String = ""
 var is_host : bool = false
 var max_rounds : int = 3
+
+var rooms : Dictionary = {} 
 var players : Dictionary = {} 
+
 var players_ready_for_leaderboard : Array = []
 var last_error : String = ""
 
@@ -62,14 +65,11 @@ func calculate_scores():
 	
 	if player_caffeine == target_caffeine:
 		score_caffeine = 25
-		
 	elif player_caffeine >= target_caffeine + 10:
 		score_caffeine = 0
 		customer_killed = true
-		
 	elif abs(caffeine_diff) <= 5:
 		score_caffeine = 20
-		
 	else:
 		score_caffeine = max(0, int(20 - (0.4 * abs(caffeine_diff))))
 	
@@ -77,13 +77,6 @@ func calculate_scores():
 		score_total = 0 
 	else:
 		score_total = score_color + score_scoops + score_caffeine + score_time
-		
-	#var my_id = multiplayer.get_unique_id()
-	#if not cumulative_scores.has(my_id):
-		#cumulative_scores[my_id] = {"name": player_name, "total": 0}
-	#
-	#cumulative_scores[my_id]["total"] += score_total
-
 
 @rpc("any_peer", "call_local", "reliable")
 func notify_player_finished(p_name, s_total, s_color, s_scoops, s_caffeine, s_time, killed):
@@ -130,45 +123,51 @@ func show_host_next_button():
 	if current_scene.has_method("_enable_next_button"):
 		current_scene._enable_next_button()
 
-
 func host_game():
 	peer.create_server(PORT)
 	multiplayer.multiplayer_peer = peer
 	players.clear()
-	players[1] = player_name 
+	register_player_in_room(player_name, room_code)
 
 func join_game(ip_address):
-	var url = "ws://" + ip_address + ":" + str(PORT)
+	var url = "wss://" + ip_address + ":" + str(PORT)
 	peer.create_client(url)
 	multiplayer.multiplayer_peer = peer
 	await multiplayer.connected_to_server
-	var my_id = multiplayer.get_unique_id()
-	players[my_id] = player_name
+	register_player_in_room(player_name, room_code)
 
 func _on_peer_connected(id):
-	rpc_id(id, "register_player", player_name)
+	pass
 
 func _on_peer_disconnected(id):
+	if multiplayer.is_server():
+		for code in rooms:
+			if rooms[code].has(id):
+				rooms[code].erase(id)
+				rpc("update_room_player_list", code, rooms[code])
+				break
+	
 	if players.has(id):
 		players.erase(id)
 		_refresh_lobby_ui()
 
 @rpc("any_peer", "reliable", "call_local")
-func register_player(new_player_name):
-	var id = multiplayer.get_remote_sender_id()
-	if id == 0: 
-		id = multiplayer.get_unique_id()
-		
-	players[id] = new_player_name
+func register_player_in_room(new_player_name, code):
 	if multiplayer.is_server():
-		rpc("update_player_list", players)
+		var id = multiplayer.get_remote_sender_id()
+		if id == 0: id = 1
 		
-	_refresh_lobby_ui()
+		if not rooms.has(code):
+			rooms[code] = {}
+		
+		rooms[code][id] = new_player_name
+		rpc("update_room_player_list", code, rooms[code])
 
-@rpc("authority", "reliable")
-func update_player_list(new_players_dict):
-	players = new_players_dict
-	_refresh_lobby_ui()
+@rpc("authority", "reliable", "call_local")
+func update_room_player_list(code, room_players):
+	if room_code == code:
+		players = room_players
+		_refresh_lobby_ui()
 
 func _refresh_lobby_ui():
 	var current_scene = get_tree().current_scene
