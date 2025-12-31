@@ -26,7 +26,9 @@ offset_right = 1957.0
 offset_bottom = 1191.0
 
 [node name="players" type="VBoxContainer" parent="ScrollContainer"]
+custom_minimum_size = Vector2(1554, 185)
 layout_mode = 2
+theme_override_constants/separation = 20
 
 [node name="newButton" type="TextureButton" parent="."]
 visible = false

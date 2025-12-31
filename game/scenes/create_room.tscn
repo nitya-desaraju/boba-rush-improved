@@ -122,7 +122,7 @@ offset_bottom = 1556.0
 custom_minimum_size = Vector2(1060, 100)
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/separation = 100
+theme_override_constants/separation = 20
 
 [node name="startGameButton" type="TextureButton" parent="."]
 layout_mode = 0

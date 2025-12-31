@@ -3,14 +3,19 @@
 [ext_resource type="Texture2D" uid="uid://262a2b37tkfj" path="res://assets/third_row.png" id="1_win76"]
 [ext_resource type="FontFile" uid="uid://bk7mjro22pcvr" path="res://assets/fonts/PoetsenOne-Regular.ttf" id="2_mp8hy"]
 
-[node name="ThirdRow" type="Node2D"]
+[node name="ThirdRow" type="Control"]
+custom_minimum_size = Vector2(1555, 185)
+layout_mode = 3
+anchors_preset = 0
 
 [node name="thirdRow" type="TextureRect" parent="."]
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("1_win76")
 
 [node name="name" type="RichTextLabel" parent="."]
+layout_mode = 0
 offset_left = 60.0
 offset_top = -25.0
 offset_right = 1210.0
@@ -22,6 +27,7 @@ text = "3. Nitya"
 vertical_alignment = 1
 
 [node name="score" type="RichTextLabel" parent="."]
+layout_mode = 0
 offset_left = 1125.0
 offset_top = 2.0
 offset_right = 1505.0

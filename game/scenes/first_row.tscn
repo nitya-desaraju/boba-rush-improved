@@ -3,14 +3,19 @@
 [ext_resource type="Texture2D" uid="uid://7btkv3viukiq" path="res://assets/first_row.png" id="1_swqjl"]
 [ext_resource type="FontFile" uid="uid://bk7mjro22pcvr" path="res://assets/fonts/PoetsenOne-Regular.ttf" id="2_hk03q"]
 
-[node name="FirstRow" type="Node2D"]
+[node name="FirstRow" type="Control"]
+custom_minimum_size = Vector2(1555, 185)
+layout_mode = 3
+anchors_preset = 0
 
 [node name="firstRow" type="TextureRect" parent="."]
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("1_swqjl")
 
 [node name="name" type="RichTextLabel" parent="."]
+layout_mode = 0
 offset_left = 60.0
 offset_top = -25.0
 offset_right = 1210.0
@@ -22,6 +27,7 @@ text = "1. Nitya"
 vertical_alignment = 1
 
 [node name="score" type="RichTextLabel" parent="."]
+layout_mode = 0
 offset_left = 1125.0
 offset_top = 2.0
 offset_right = 1505.0

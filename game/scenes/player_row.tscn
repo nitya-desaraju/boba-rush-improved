@@ -4,10 +4,13 @@
 [ext_resource type="FontFile" uid="uid://bk7mjro22pcvr" path="res://assets/fonts/PoetsenOne-Regular.ttf" id="2_c1x0w"]
 [ext_resource type="Texture2D" uid="uid://cd25hlstrle8m" path="res://assets/kick_button.png" id="3_4t5a5"]
 
-[node name="PlayerRow" type="Node2D"]
+[node name="PlayerRow" type="Control"]
+custom_minimum_size = Vector2(1052.1, 176.4)
+layout_mode = 3
+anchors_preset = 0
 
 [node name="row" type="Control" parent="."]
-layout_mode = 3
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
