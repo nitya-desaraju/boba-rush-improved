@@ -145,6 +145,13 @@ stretch_mode = 5
 
 [node name="pour" type="Timer" parent="."]
 
+[node name="overlay" type="ColorRect" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 2360.0
+offset_bottom = 1640.0
+color = Color(0, 0, 0, 0.49803922)
+
 [node name="orderPopup" type="TextureRect" parent="."]
 visible = false
 layout_mode = 0

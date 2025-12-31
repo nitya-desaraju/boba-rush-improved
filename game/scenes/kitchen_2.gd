@@ -18,6 +18,7 @@ extends Control
 @onready var next_button = $nextButton
 @onready var order_popup = $orderPopup
 @onready var submit_button = $colorViewer/submitButton
+@onready var overlay = $overlay
 
 var current_color: Color = Color.WHITE
 
@@ -66,9 +67,11 @@ func _on_slider_changed(_value):
 
 func _on_show_order_pressed():
 	order_popup.show()
+	overlay.show()
 
 func _on_close_popup_pressed():
 	order_popup.hide()
+	overlay.hide()
 
 func _on_submit_button_pressed():
 	$colorViewer/submitButton.disabled = true

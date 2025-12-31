@@ -1,4 +1,4 @@
-extends Control 
+extends Control
 
 @export var scoop_full: Texture
 @export var scoop_empty: Texture
@@ -12,6 +12,7 @@ extends Control
 @onready var next_button = $nextButton
 @onready var cup_full = $cupFull
 @onready var order_popup = $orderPopup
+@onready var overlay = $overlay
 
 var scoops = 0
 var dragging = false
@@ -57,9 +58,11 @@ func _input(event):
 
 func _on_show_order_pressed():
 	order_popup.show()
+	overlay.show()
 
 func _on_close_popup_pressed():
 	order_popup.hide()
+	overlay.hide()
 
 func _on_scoop_touch(area):
 	if area.name == "binArea" and not has_boba_in_scoop:

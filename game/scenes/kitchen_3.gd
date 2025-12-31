@@ -1,4 +1,4 @@
-extends Control 
+extends Control
 
 @onready var slider = $slider
 @onready var stop_button = $stopButton
@@ -6,6 +6,7 @@ extends Control
 @onready var next_button = $nextButton
 @onready var cup = $cup
 @onready var order_popup = $orderPopup
+@onready var overlay = $overlay
 
 var slider_speed = 100.0
 var direction = 1
@@ -66,9 +67,11 @@ func _process(delta):
 
 func _on_show_order_pressed():
 	order_popup.show()
+	overlay.show()
 
 func _on_close_popup_pressed():
 	order_popup.hide()
+	overlay.hide()
 
 func _show_scoops(count):
 	if count == 1:
