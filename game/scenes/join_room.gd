@@ -34,7 +34,7 @@ func receive_error(type):
 
 func _show_temp_image(img_node):
 	img_node.show()
-	await get_tree().create_timer(5.0).timeout
+	await get_tree().create_timer(3.0).timeout
 	img_node.hide()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

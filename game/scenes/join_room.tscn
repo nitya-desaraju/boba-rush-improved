@@ -38,14 +38,28 @@ offset_bottom = 1531.0
 texture_normal = ExtResource("3_e4rja")
 stretch_mode = 5
 
-[node name="fullRoomNotif" type="TextureRect" parent="."]
+[node name="fullRoomNotif" type="RichTextLabel" parent="."]
 visible = false
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_top = 475.0
+offset_right = 2360.0
+offset_bottom = 2115.0
+theme_override_colors/default_color = Color(1, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("3_q7wqd")
+theme_override_font_sizes/normal_font_size = 200
+text = "Room is Full"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="kickedNotif" type="TextureRect" parent="."]
+[node name="kickedNotif" type="RichTextLabel" parent="."]
 visible = false
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_top = 475.0
+offset_right = 2360.0
+offset_bottom = 2115.0
+theme_override_colors/default_color = Color(1, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("3_q7wqd")
+theme_override_font_sizes/normal_font_size = 200
+text = "Host kicked you"
+horizontal_alignment = 1
+vertical_alignment = 1
