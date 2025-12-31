@@ -24,7 +24,7 @@ func _on_join_button_pressed():
 	GameManager.room_code = code
 	GameManager.is_host = false
 	
-	GameManager.join_game("127.0.0.1") #CHANGE TO RENDER URL
+	GameManager.join_game("https://boba-rush.onrender.com") #CHANGE TO RENDER URL
 	
 	if not multiplayer.connected_to_server.is_connected(_change_to_lobby):
 		multiplayer.connected_to_server.connect(_change_to_lobby)
