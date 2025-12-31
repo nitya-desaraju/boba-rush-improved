@@ -1,13 +1,11 @@
 [gd_scene load_steps=7 format=3 uid="uid://cu3s6rirgt3gk"]
 
 [ext_resource type="Script" uid="uid://drdp8buxxnf1n" path="res://scenes/create_room.gd" id="1_alqp6"]
+[ext_resource type="Texture2D" uid="uid://m1tw3s7bt8ma" path="res://addons/IMG_0991.PNG" id="2_iju0h"]
 [ext_resource type="FontFile" uid="uid://bk7mjro22pcvr" path="res://assets/fonts/PoetsenOne-Regular.ttf" id="3_78kgv"]
 [ext_resource type="Texture2D" uid="uid://rnrpqulc15iw" path="res://assets/minus_button.png" id="3_hugna"]
 [ext_resource type="Texture2D" uid="uid://dgypf4qwvqvdu" path="res://assets/plus_button.png" id="4_iju0h"]
 [ext_resource type="Texture2D" uid="uid://da2mhp2vldelc" path="res://assets/start_button.png" id="5_hdjgt"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_g5yfu"]
-load_path = "res://.godot/imported/createroom_scene.PNG-4562d92d7904700b44fc2786dbd13135.ctex"
 
 [node name="CreateRoom" type="Control"]
 layout_mode = 3
@@ -19,7 +17,7 @@ layout_mode = 1
 anchors_preset = -1
 offset_right = 2360.0
 offset_bottom = 1640.0
-texture = SubResource("CompressedTexture2D_g5yfu")
+texture = ExtResource("2_iju0h")
 
 [node name="code" type="RichTextLabel" parent="."]
 layout_mode = 0
@@ -127,6 +125,7 @@ size_flags_vertical = 3
 theme_override_constants/separation = 100
 
 [node name="startGameButton" type="TextureButton" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 1448.0
 offset_top = 1229.0
@@ -167,3 +166,16 @@ offset_left = 354.0
 offset_top = 680.0
 offset_right = 2244.0
 offset_bottom = 1375.0
+
+[node name="wait" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 1373.0
+offset_top = 1150.0
+offset_right = 2135.0
+offset_bottom = 1617.0
+theme_override_colors/default_color = Color(0.78, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("3_78kgv")
+theme_override_font_sizes/normal_font_size = 150
+text = "Starting in 3..."
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -10,6 +10,7 @@ const THIRD_ROW = preload("res://scenes/third_row.tscn")
 @onready var menu_button = $menuButton
 @onready var next_round_button = $nextRoundButton
 @onready var round_label = $roundLabel 
+@onready var wait = $wait
 
 func _ready():
 	var is_game_over = GameManager.current_round >= GameManager.max_rounds
@@ -68,7 +69,23 @@ func _setup_leaderboard():
 				score_label.text = score_text
 
 func _on_next_round_pressed():
-	GameManager.start_next_round.rpc()
+	rpc("start_next_round_countdown")
+	
+@rpc("authority", "call_local", "reliable")
+func start_next_round_countdown():
+	next_round_button.hide()
+	wait.show()
+	
+	await get_tree().create_timer(1.0).timeout
+	wait.text = "Starting in 2..."
+	
+	await get_tree().create_timer(1.0).timeout
+	wait.text = "Starting in 1..."
+	
+	await get_tree().create_timer(1.0).timeout
+	
+	if multiplayer.is_server():
+		GameManager.start_next_round.rpc()
 
 func _on_new_button_pressed():
 	rpc("sync_new_game")

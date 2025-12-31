@@ -9,6 +9,7 @@ const PLAYER_ROW_SCENE = preload("res://scenes/player_row.tscn")
 @onready var start_button = $startGameButton
 @onready var kick_notif = $kickNotif
 @onready var player_count = $playerCount
+@onready var wait = $wait
 
 func _ready():
 	if GameManager.is_host:
@@ -154,11 +155,23 @@ func _show_temp_image(img_node):
 func _on_start_game_pressed():
 	GameManager.current_round = 1
 	GameManager.cumulative_scores.clear()
-	GameManager.start_game_timer.rpc()
 	rpc("start_the_boba_race")
 
 @rpc("any_peer", "call_local")
 func start_the_boba_race():
+	start_button.hide()
+	wait.show()
+	
+	await get_tree().create_timer(1.0).timeout
+	wait.text = "Starting in 2..."
+	
+	await get_tree().create_timer(1.0).timeout
+	wait.text = "Starting in 1..."
+	
+	await get_tree().create_timer(1.0).timeout
+	
+	if multiplayer.is_server():
+		GameManager.start_game_timer.rpc()
 	get_tree().change_scene_to_file("res://scenes/kitchen2.tscn")
 	
 @rpc("authority")
