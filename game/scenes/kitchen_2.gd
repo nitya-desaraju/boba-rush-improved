@@ -19,18 +19,27 @@ extends Control
 @onready var order_popup = $orderPopup
 @onready var submit_button = $colorViewer/submitButton
 @onready var overlay = $overlay
+@onready var close_popup = $orderPopup/closePopup
 
 var current_color: Color = Color.WHITE
 
 func _ready():
-	$orderPopup/targetColor.color = GameManager.target_color
+	$orderPopup/targetColor.self_modulate = GameManager.target_color
 	$orderPopup/targetScoops.text = str(GameManager.target_scoops)
-	$orderPopup/targetCaffeine.text = str(GameManager.target_caffeine)
+	$orderPopup/targetCaffeine.text = str(GameManager.target_caffeine) + "%"
 	
 	submit_button.pressed.connect(_on_submit_button_pressed)
 	next_button.pressed.connect(_on_next_button_pressed)
 	$showOrder.pressed.connect(_on_show_order_pressed)
-	$orderPopup/closePopup.pressed.connect(_on_close_popup_pressed) 
+	close_popup.pressed.connect(_on_close_popup_pressed)
+	close_popup.mouse_entered.connect(func(): 
+		var tw = create_tween()
+		tw.tween_property(close_popup, "self_modulate", Color(0.8, 0.8, 0.8, 1), 0.1)
+	)
+	close_popup.mouse_exited.connect(func(): 
+		var tw = create_tween()
+		tw.tween_property(close_popup, "self_modulate", Color(1, 1, 1, 1), 0.1)
+	)
 
 	next_button.mouse_entered.connect(func(): 
 		var tw = create_tween()

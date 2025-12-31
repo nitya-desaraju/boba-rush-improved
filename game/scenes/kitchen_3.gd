@@ -6,6 +6,7 @@ extends Control
 @onready var cup = $cup
 @onready var order_popup = $orderPopup
 @onready var overlay = $overlay
+@onready var close_popup = $orderPopup/closePopup
 
 var slider_speed = 120.0
 var direction = 1
@@ -16,13 +17,21 @@ func _ready() -> void:
 	cup.self_modulate = GameManager.player_color
 	_show_scoops(GameManager.player_scoops)
 	
-	$orderPopup/targetColor.color = GameManager.target_color
+	$orderPopup/targetColor.self_modulate = GameManager.target_color
 	$orderPopup/targetScoops.text = str(GameManager.target_scoops)
-	$orderPopup/targetCaffeine.text = str(GameManager.target_caffeine)
+	$orderPopup/targetCaffeine.text = str(GameManager.target_caffeine) + "%"
 	order_popup.hide()
 	
 	$showOrder.pressed.connect(_on_show_order_pressed)
-	$orderPopup/closePopup.pressed.connect(_on_close_popup_pressed)
+	close_popup.pressed.connect(_on_close_popup_pressed)
+	close_popup.mouse_entered.connect(func(): 
+		var tw = create_tween()
+		tw.tween_property(close_popup, "self_modulate", Color(0.8, 0.8, 0.8, 1), 0.1)
+	)
+	close_popup.mouse_exited.connect(func(): 
+		var tw = create_tween()
+		tw.tween_property(close_popup, "self_modulate", Color(1, 1, 1, 1), 0.1)
+	)
 	
 	next_button.pressed.connect(_on_next_button_pressed)
 	next_button.mouse_entered.connect(func(): 

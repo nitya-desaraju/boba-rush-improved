@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://vyktqqwa8gy3"]
+[gd_scene load_steps=16 format=3 uid="uid://vyktqqwa8gy3"]
 
 [ext_resource type="Script" uid="uid://ddtjbys0t5qkt" path="res://scenes/kitchen_2.gd" id="1_8ykb4"]
 [ext_resource type="Texture2D" uid="uid://c1mvppc5vbhh1" path="res://assets/kitchen2.PNG" id="2_u54o6"]
@@ -11,6 +11,10 @@
 [ext_resource type="Texture2D" uid="uid://dm2epcy1ogple" path="res://assets/cup_half3.png" id="9_5uxus"]
 [ext_resource type="Texture2D" uid="uid://7dtsd54255fb" path="res://assets/cup_full.png" id="10_wwu4i"]
 [ext_resource type="Texture2D" uid="uid://oljha773hd1v" path="res://assets/dispenser.png" id="11_inss1"]
+[ext_resource type="Texture2D" uid="uid://d2s8js2x23j2n" path="res://assets/order_popup.png" id="12_7vnt1"]
+[ext_resource type="Texture2D" uid="uid://b6wcofolvthk8" path="res://assets/target_color.png" id="13_a0t8y"]
+[ext_resource type="Texture2D" uid="uid://cd25hlstrle8m" path="res://assets/kick_button.png" id="14_yosnk"]
+[ext_resource type="FontFile" uid="uid://bk7mjro22pcvr" path="res://assets/fonts/PoetsenOne-Regular.ttf" id="15_cwwf4"]
 
 [node name="Kitchen2" type="Control"]
 layout_mode = 3
@@ -158,29 +162,54 @@ color = Color(0, 0, 0, 0.49803922)
 [node name="orderPopup" type="TextureRect" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 546.0
-offset_top = 308.0
-offset_right = 1953.0
-offset_bottom = 1358.0
+offset_left = 740.0
+offset_top = 112.0
+offset_right = 1620.0
+offset_bottom = 1528.0
+texture = ExtResource("12_7vnt1")
+stretch_mode = 5
 
-[node name="targetColor" type="ColorRect" parent="orderPopup"]
+[node name="targetColor" type="TextureRect" parent="orderPopup"]
 layout_mode = 0
-offset_left = 483.0
-offset_top = 162.0
-offset_right = 1022.0
-offset_bottom = 452.0
+offset_left = 230.0
+offset_top = 300.0
+offset_right = 650.0
+offset_bottom = 535.0
+texture = ExtResource("13_a0t8y")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="closePopup" type="TextureButton" parent="orderPopup"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 380.0
+offset_top = 1280.0
+offset_right = 500.0
+offset_bottom = 1390.0
+texture_normal = ExtResource("14_yosnk")
+stretch_mode = 5
 
 [node name="targetScoops" type="RichTextLabel" parent="orderPopup"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 315.0
+offset_top = 630.0
+offset_right = 565.0
+offset_bottom = 880.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("15_cwwf4")
+theme_override_font_sizes/normal_font_size = 200
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="targetCaffeine" type="RichTextLabel" parent="orderPopup"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 140.0
+offset_top = 935.0
+offset_right = 740.0
+offset_bottom = 1285.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("15_cwwf4")
+theme_override_font_sizes/normal_font_size = 170
+text = "100%"
+horizontal_alignment = 1
+vertical_alignment = 1
