@@ -124,7 +124,14 @@ func show_host_next_button():
 		current_scene._enable_next_button()
 
 func host_game():
-	peer.create_server(PORT)
+	print("!!! ATTEMPTING TO START SERVER ON PORT ", PORT, " !!!")
+    var err = peer.create_server(PORT)
+    if err != OK:
+        print("!!! SERVER FAILED TO START: ", err, " !!!")
+    else:
+        print("!!! SERVER STARTED SUCCESSFULLY !!!")
+
+	#peer.create_server(PORT)
 	multiplayer.multiplayer_peer = peer
 	players.clear()
 	register_player_in_room(player_name, room_code)
