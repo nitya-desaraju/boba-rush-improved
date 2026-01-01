@@ -9,4 +9,4 @@ RUN chmod +x game.x86_64
 
 
 EXPOSE 8080
-CMD ["./game.x86_64", "--headless", "--", "--main-pack", "game.pck"]
+CMD ["./game.x86_64", "--headless", "--verbose", "--main-pack", "game.pck"]
